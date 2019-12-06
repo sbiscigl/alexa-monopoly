@@ -9,7 +9,6 @@ import com.google.inject.AbstractModule;
 public class MonopolyModule extends AbstractModule {
     @Override
     protected void configure() {
-        bind(MonopolyModule.class);
         bind(GameStatusDao.class).to(S3GameStatusDao.class);
         bind(GameHandler.class).to(MonopolyGameHandler.class);
     }

@@ -4,9 +4,14 @@ jdk:
 after_success:
 - mvn clean test jacoco:report coveralls:report
 - mvn package
-addons:
-  artifacts:
-    paths:
-      - target/alexa-monopoly-1.0-SNAPSHOT.jar
-    target_paths:
-      - build/
+deploy:
+  provider: lambda
+  role: "arn:aws:iam::958140412859:role/service-role/alexa-monopoly-role-er3iugb7"
+  function_name: "alexa-monopoly"
+  region: "us-east-1"
+  runtime: "java8"
+  module_name: "com.amazon.sbidoo"
+  handler_name: "Monopoly::handleRequest"
+  zip: "./target/alexa-monopoly-1.0-SNAPSHOT.jar"
+  memory_size: "512"
+  timeout: "15"

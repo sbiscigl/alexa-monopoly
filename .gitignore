@@ -90,6 +90,10 @@ fabric.properties
 .idea/**/markdown-navigator.xml
 .idea/**/markdown-navigator/
 
+# More intellij
+.idea
+*.iml
+
 ### Java ###
 # Compiled class file
 *.class

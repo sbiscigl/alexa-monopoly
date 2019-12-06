@@ -24,7 +24,7 @@ public class MonopolyGameHandler implements GameHandler {
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
         return handlerInput.getResponseBuilder()
-                .withSpeech("test change")
+                .withSpeech("this really updated")
                 .withShouldEndSession(false)
                 .build();
     }
