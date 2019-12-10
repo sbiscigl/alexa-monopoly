@@ -9,8 +9,6 @@ import org.apache.commons.lang3.RandomUtils;
 
 public class MonopolyAlexaTurnHandler extends TurnHandler implements AlexaTurnHandler {
 
-    private final GameStatusDao gameStatusDao;
-
     @Inject
     public MonopolyAlexaTurnHandler(final GameStatusDao gameStatusDao) {
         this.gameStatusDao = gameStatusDao;

@@ -25,7 +25,6 @@ public class MonopolyDieHandler extends TurnHandler implements DieRollHandler {
     public static final String ROLL_STATUS_FORMAT = "You are currently on %s";
 
     private final Logger logger;
-    private final GameStatusDao gameStatusDao;
 
     @Inject
     public MonopolyDieHandler(@Named("MonopolyDieHandlerLogger") final Logger logger,

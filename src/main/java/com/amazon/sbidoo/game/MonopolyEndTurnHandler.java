@@ -18,8 +18,7 @@ public class MonopolyEndTurnHandler extends TurnHandler implements EndTurnHandle
 
     public static final String END_TURN_INTENT = "EndTurnIntent";
     public static final String ALEXA_RESPONSE_FORMAT = "I rolled a %s and a %s, and am currently at %s";
-
-    private final GameStatusDao gameStatusDao;
+    
     private final AlexaTurnHandler alexaTurnHandler;
     private final Logger logger;
 
