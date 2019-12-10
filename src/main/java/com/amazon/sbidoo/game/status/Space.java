@@ -17,7 +17,7 @@ public class Space {
         GoToJail,
         FreeParking,
         RailRoad,
-        Utilities
+        IncomeTax, LuxuryTax, Utilities
     }
 
     public enum SpaceCategory {
@@ -29,14 +29,11 @@ public class Space {
         Yellow,
         Green,
         Blue,
-        Utilities,
-        RailRoad
+        RailRoad, Utilities, Other
     }
 
     private SpaceType spaceType;
     private SpaceCategory spaceCategory;
-    private int positionFromStart;
     private int price;
-    private String propertyName;
-    private Consumer<Player> spaceAction;
+    private String spaceName;
 }

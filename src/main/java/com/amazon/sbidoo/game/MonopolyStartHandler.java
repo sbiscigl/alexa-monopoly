@@ -7,7 +7,10 @@ import com.amazon.sbidoo.game.status.Banker;
 import com.amazon.sbidoo.game.status.Board;
 import com.amazon.sbidoo.game.status.GameStatus;
 import com.amazon.sbidoo.game.status.GameStatusDao;
+import com.amazon.sbidoo.game.status.Player;
 import com.amazon.sbidoo.game.status.Property;
+import com.amazon.sbidoo.game.status.util.BoardCreationHelper;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Inject;
@@ -29,13 +32,28 @@ public class MonopolyStartHandler implements OnStartHandler {
     public GameStatus startGame(String userId) {
         final GameStatus initialGameStatus = GameStatus.builder()
                 .banker(Banker.builder()
-                        .bankroll(0)
+                        .bankroll(20_580)
                         .freeParkingMoney(0)
                         .build())
-                .board(Board.builder()
-                        .spaceMap(ImmutableMap.of())
-                        .build())
-                .players(ImmutableSet.of())
+                .board(BoardCreationHelper.createBoard())
+                .players(ImmutableSet.of(
+                        Player.builder()
+                                .hasRolled(false)
+                                .wereLastRollsDoubles(ImmutableList.of())
+                                .isOnTurn(true)
+                                .money(1_500)
+                                .pieceType(Player.PieceType.Thimble)
+                                .positionFromStart(0)
+                                .build(),
+                        Player.builder()
+                                .hasRolled(false)
+                                .wereLastRollsDoubles(ImmutableList.of())
+                                .isOnTurn(true)
+                                .money(1_500)
+                                .pieceType(Player.PieceType.Thimble)
+                                .positionFromStart(0)
+                                .build()
+                ))
                 .property(Property.builder()
                         .propertyMap(ImmutableMap.of())
                         .build())
