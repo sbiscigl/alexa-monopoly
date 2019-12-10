@@ -18,7 +18,7 @@ public class MonopolyEndTurnHandler extends TurnHandler implements EndTurnHandle
 
     public static final String END_TURN_INTENT = "EndTurnIntent";
     public static final String ALEXA_RESPONSE_FORMAT = "I rolled a %s and a %s, and am currently at %s";
-    
+
     private final AlexaTurnHandler alexaTurnHandler;
     private final Logger logger;
 
@@ -32,8 +32,8 @@ public class MonopolyEndTurnHandler extends TurnHandler implements EndTurnHandle
     }
 
     @Override
-    public void updatePlayerStatus(String userId, GameStatus gameStatus) {
-        endTurn(userId, gameStatus);
+    public void updatePlayerStatus(GameStatus gameStatus) {
+        endTurn(gameStatus);
     }
 
     @Override
@@ -51,8 +51,9 @@ public class MonopolyEndTurnHandler extends TurnHandler implements EndTurnHandle
     public Optional<Response> handle(HandlerInput handlerInput) {
         final String userId = handlerInput.getRequestEnvelope().getSession().getUser().getUserId();
         final GameStatus gameStatus = this.gameStatusDao.getGameStatusForUserId(userId);
-        updatePlayerStatus(userId, gameStatus);
+        updatePlayerStatus(gameStatus);
         AlexaTurnResult alexaTurnResult = processAlexaTurn(userId, gameStatus);
+        this.gameStatusDao.updateGameStatusForUserId(gameStatus, userId);
         return handlerInput.getResponseBuilder()
                 .withSpeech(String.format(ALEXA_RESPONSE_FORMAT,
                         alexaTurnResult.getDieOne(),

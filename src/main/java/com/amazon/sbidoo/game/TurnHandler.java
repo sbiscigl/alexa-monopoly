@@ -9,28 +9,15 @@ import java.util.Set;
 abstract public class TurnHandler {
     protected GameStatusDao gameStatusDao;
 
-    protected void endTurn(String userId, GameStatus gameStatus) {
-        Player playerOnTurn = getPlayerOnTurn(userId, gameStatus);
-        Player playerOffTurn = getPlayerOffTurn(userId);
+    protected void endTurn(GameStatus gameStatus) {
+        Player playerOnTurn = getPlayerOnTurn(gameStatus);
+        Player playerOffTurn = getPlayerOffTurn(gameStatus);
         playerOnTurn.endTurn();
         playerOffTurn.startTurn();
     }
 
-    protected Player getPlayerOnTurn(String userId, GameStatus gameStatus) {
+    protected Player getPlayerOffTurn(final GameStatus gameStatus) {
         Set<Player> players = gameStatus.getPlayers();
-        Player playerOnTurn = null;
-        for(Player player : players) {
-            if (player.isOnTurn()) {
-                playerOnTurn = player;
-                break;
-            }
-        }
-        return playerOnTurn;
-    }
-
-    protected Player getPlayerOffTurn(String userId) {
-        final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
-        Set<Player> players = gameStatusForUserId.getPlayers();
         Player playerOffTurn = null;
         for(Player player : players) {
             if (!player.isOnTurn()) {
@@ -41,8 +28,8 @@ abstract public class TurnHandler {
         return playerOffTurn;
     }
 
-    protected Player getPlayerOnTurn(final GameStatus gameStatusForUserId) {
-        Set<Player> players = gameStatusForUserId.getPlayers();
+    protected Player getPlayerOnTurn(final GameStatus gameStatus) {
+        Set<Player> players = gameStatus.getPlayers();
         Player playerOnTurn = null;
         for (Player player : players) {
             if (player.isOnTurn()) {

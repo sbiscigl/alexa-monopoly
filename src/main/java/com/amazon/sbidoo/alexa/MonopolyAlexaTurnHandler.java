@@ -29,7 +29,7 @@ public class MonopolyAlexaTurnHandler extends TurnHandler implements AlexaTurnHa
             logger.info("no player on turn found");
         }
         playerOnTurn.updatePositionFromStart(dieOne, dieTwo);
-        endTurn(userId, gameStatus);
+        endTurn(gameStatus);
         return AlexaTurnResult.builder()
                 .dieOne(dieOne)
                 .dieTwo(dieTwo)
