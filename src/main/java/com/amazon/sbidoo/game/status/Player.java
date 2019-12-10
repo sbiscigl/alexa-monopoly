@@ -1,7 +1,12 @@
 package com.amazon.sbidoo.game.status;
 
+import lombok.Builder;
+import lombok.Value;
+
 import java.util.List;
 
+@Builder
+@Value
 public class Player {
     public enum PieceType {
         Dog,
@@ -18,17 +23,6 @@ public class Player {
     private int positionFromStart;
     private int money;
     private boolean isOnTurn;
+    private boolean hasRolled;
     private List<Integer> lastRolls;
-
-    public Player(final PieceType pieceType,
-                  final int positionFromStart,
-                  final int money,
-                  final boolean isOnTurn,
-                  final List<Integer> lastRolls) {
-        this.pieceType = pieceType;
-        this.positionFromStart = positionFromStart;
-        this.money = money;
-        this.isOnTurn = isOnTurn;
-        this.lastRolls = lastRolls;
-    }
 }

@@ -1,12 +1,11 @@
 package com.amazon.sbidoo.game.status;
 
-public class Banker {
-    private final int bankroll;
-    private final int freeParkingMoney;
+import lombok.Builder;
+import lombok.Value;
 
-    public Banker(final int bankroll,
-                  final int freeParkingMoney) {
-        this.bankroll = bankroll;
-        this.freeParkingMoney = freeParkingMoney;
-    }
+@Builder
+@Value
+public class Banker {
+    private int bankroll;
+    private int freeParkingMoney;
 }

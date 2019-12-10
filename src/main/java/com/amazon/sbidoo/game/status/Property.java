@@ -1,11 +1,16 @@
 package com.amazon.sbidoo.game.status;
 
+import lombok.Builder;
+import lombok.Value;
+
 import java.util.Map;
 
+@Builder
+@Value
 public class Property {
     public class SpaceInfo {
-        private Board.SpaceType spaceType;
-        private Board.SpaceCategory spaceCategory;
+        private Space.SpaceType spaceType;
+        private Space.SpaceCategory spaceCategory;
     }
 
     public class OwnerInfo {
@@ -15,8 +20,4 @@ public class Property {
     }
 
     private final Map<SpaceInfo, OwnerInfo> propertyMap;
-
-    public Property(final Map<SpaceInfo, OwnerInfo> propertyMap) {
-        this.propertyMap = propertyMap;
-    }
 }
