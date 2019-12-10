@@ -38,8 +38,6 @@ public class MonopolyGameHandler implements GameHandler {
 
     private void whatever(String userId) {
         final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
-        final GameStatus gameStatus = new GameStatus(gameStatusForUserId.getVersion() + 1,
-                gameStatusForUserId.getMesaage() + " cool");
-        this.gameStatusDao.updateGameStatusForUserId(gameStatus, userId);
+//        this.gameStatusDao.updateGameStatusForUserId(gameStatus, userId);
     }
 }

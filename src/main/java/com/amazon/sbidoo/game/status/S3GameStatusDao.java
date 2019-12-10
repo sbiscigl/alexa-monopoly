@@ -55,7 +55,8 @@ public class S3GameStatusDao implements GameStatusDao {
             return getGameStatusFromS3Object(s3ObjectSummary);
         } else {
             logger.info("no object found, creating one");
-            return new GameStatus(0, "initialize");
+//            return new GameStatus(0, "initialize");
+            return null;
         }
     }
 
