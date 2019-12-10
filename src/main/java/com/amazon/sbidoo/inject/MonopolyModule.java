@@ -47,5 +47,8 @@ public class MonopolyModule extends AbstractModule {
         bind(Logger.class)
                 .annotatedWith(Names.named("MonopolyEndTurnHandlerLogger"))
                 .toInstance(LogManager.getLogger(MonopolyEndTurnHandler.class));
+        bind(Logger.class)
+                .annotatedWith(Names.named("MonopolyAlexaTurnHandlerLogger"))
+                .toInstance(LogManager.getLogger(MonopolyAlexaTurnHandler.class));
     }
 }
