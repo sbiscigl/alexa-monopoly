@@ -49,7 +49,7 @@ public class Player {
             newPositionFromStart = newPositionBeforeNormalization;
         }
 
-        this.positionFromStart += newPositionFromStart;
+        this.positionFromStart = newPositionFromStart;
     }
 
     public void startTurn() {
