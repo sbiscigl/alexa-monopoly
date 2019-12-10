@@ -1,6 +1,10 @@
 package com.amazon.sbidoo.inject;
 
+import com.amazon.sbidoo.game.DieRollHandler;
+import com.amazon.sbidoo.game.EndTurnHandler;
+import com.amazon.sbidoo.game.MonopolyDieHandler;
 import com.amazon.sbidoo.game.MonopolyEndHandler;
+import com.amazon.sbidoo.game.MonopolyEndTurnHandler;
 import com.amazon.sbidoo.game.MonopolyStartHandler;
 import com.amazon.sbidoo.game.OnEndHandler;
 import com.amazon.sbidoo.game.OnStartHandler;
@@ -25,6 +29,11 @@ public class MonopolyModule extends AbstractModule {
                 .to(MonopolyStartHandler.class);
         bind(OnEndHandler.class)
                 .to(MonopolyEndHandler.class);
+        bind(DieRollHandler.class)
+                .to(MonopolyDieHandler.class);
+        bind(EndTurnHandler.class)
+                .to(MonopolyEndTurnHandler.class);
+
         bind(Logger.class)
                 .annotatedWith(Names.named("S3GameStatusDaoLogger"))
                 .toInstance(LogManager.getLogger(S3GameStatusDao.class));
