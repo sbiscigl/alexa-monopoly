@@ -1,12 +1,11 @@
 package com.amazon.sbidoo.game.status;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
 import java.util.List;
 
 @Builder
-@Value
+@Data
 public class Player {
     public enum PieceType {
         Dog,
@@ -25,4 +24,23 @@ public class Player {
     private boolean isOnTurn;
     private boolean hasRolled;
     private List<Integer> lastRolls;
+
+
+
+    public void updatePositionFromStart(int numberRolled){
+
+        int newPositionBeforeNormalization = this.positionFromStart + numberRolled;
+        int newPositionFromStart = -1;
+        int numOfSpacesOnBoard = 40;
+
+        //this case handles when you go back to the beginning of the board
+        if(newPositionBeforeNormalization >= numOfSpacesOnBoard) {
+            newPositionFromStart = newPositionBeforeNormalization - numOfSpacesOnBoard;
+        }
+        else {
+            newPositionFromStart = newPositionBeforeNormalization;
+        }
+
+        this.positionFromStart += newPositionFromStart;
+    }
 }

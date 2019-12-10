@@ -5,11 +5,13 @@ import com.amazon.ask.model.Response;
 import com.amazon.sbidoo.Monopoly;
 import com.amazon.sbidoo.game.status.GameStatus;
 import com.amazon.sbidoo.game.status.GameStatusDao;
+import com.amazon.sbidoo.game.status.Player;
 import com.google.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
+import java.util.Set;
 
 public class MonopolyGameHandler implements GameHandler {
 
@@ -40,4 +42,26 @@ public class MonopolyGameHandler implements GameHandler {
         final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
 //        this.gameStatusDao.updateGameStatusForUserId(gameStatus, userId);
     }
+
+    private void handleDiceRoll(String userId, int numberRolled) {
+        final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
+        Set<Player> players = gameStatusForUserId.getPlayers();
+        Player currentPlayer = null;
+        //loop through the set of players and grab the first player whose isOnTurn is set to true;
+        for(Player player : players) {
+            if (player.isOnTurn()) {
+                currentPlayer = player;
+                break;
+            }
+        }
+
+        if(currentPlayer != null) {
+            currentPlayer.updatePositionFromStart(numberRolled);
+        }
+        else {
+            System.out.println("There are no active players in the game...");
+        }
+
+    }
+
 }
