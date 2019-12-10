@@ -43,7 +43,7 @@ public class MonopolyGameHandler implements GameHandler {
 //        this.gameStatusDao.updateGameStatusForUserId(gameStatus, userId);
     }
 
-    private void handleDiceRoll(String userId, int numberRolled) {
+    private void handleDiceRoll(String userId, int dieOne, int dieTwo) {
         final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
         Set<Player> players = gameStatusForUserId.getPlayers();
         Player currentPlayer = null;
@@ -54,14 +54,13 @@ public class MonopolyGameHandler implements GameHandler {
                 break;
             }
         }
-
         if(currentPlayer != null) {
-            currentPlayer.updatePositionFromStart(numberRolled);
+            currentPlayer.updatePositionFromStart(dieOne, dieTwo);
         }
         else {
             System.out.println("There are no active players in the game...");
         }
-
     }
 
 }
+
