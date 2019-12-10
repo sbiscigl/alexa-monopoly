@@ -61,6 +61,7 @@ public class MonopolyDieHandler extends TurnHandler implements DieRollHandler {
         final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
         final Player playerOnTurn = getPlayerOnTurn(gameStatusForUserId);
         handleDiceRoll(playerOnTurn, dieOne, dieTwo);
+        this.gameStatusDao.updateGameStatusForUserId(gameStatusForUserId, userId);
         return handlerInput.getResponseBuilder()
                 .withSpeech(String.format(ROLL_STATUS_FORMAT,
                         gameStatusForUserId.getBoard()
