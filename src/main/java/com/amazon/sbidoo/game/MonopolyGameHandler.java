@@ -44,24 +44,46 @@ public class MonopolyGameHandler implements GameHandler {
     }
 
     private void handleDiceRoll(String userId, int dieOne, int dieTwo) {
-        final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
-        Set<Player> players = gameStatusForUserId.getPlayers();
-        Player currentPlayer = null;
-        //loop through the set of players and grab the first player whose isOnTurn is set to true;
-        for(Player player : players) {
-            if (player.isOnTurn()) {
-                currentPlayer = player;
-                break;
-            }
-        }
-        if(currentPlayer != null) {
-            currentPlayer.updatePositionFromStart(dieOne, dieTwo);
+        Player playerOnTurn = getPlayerOnTurn(userId);
+        if(playerOnTurn != null) {
+            playerOnTurn.updatePositionFromStart(dieOne, dieTwo);
         }
         else {
             System.out.println("There are no active players in the game...");
         }
+    }
 
+    private void endTurn(String userId) {
+        Player playerOnTurn = getPlayerOnTurn(userId);
+        Player playerOffTurn = getPlayerOffTurn(userId);
+        playerOnTurn.endTurn();
+        playerOffTurn.startTurn();
+    }
 
+    private Player getPlayerOnTurn(String userId) {
+        final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
+        Set<Player> players = gameStatusForUserId.getPlayers();
+        Player playerOnTurn = null;
+        for(Player player : players) {
+            if (player.isOnTurn()) {
+                playerOnTurn = player;
+                break;
+            }
+        }
+        return playerOnTurn;
+    }
+
+    private Player getPlayerOffTurn(String userId) {
+        final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
+        Set<Player> players = gameStatusForUserId.getPlayers();
+        Player playerOffTurn = null;
+        for(Player player : players) {
+            if (!player.isOnTurn()) {
+                playerOffTurn = player;
+                break;
+            }
+        }
+        return playerOffTurn;
     }
 
 }

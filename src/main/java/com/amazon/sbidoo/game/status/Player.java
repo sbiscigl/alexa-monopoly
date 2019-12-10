@@ -32,7 +32,9 @@ public class Player {
     public void updatePositionFromStart(int dieOne, int dieTwo){
 
         trackPreviousRolls(dieOne, dieTwo);
-        checkForDoubles();
+
+        //I will uncomment this method when we decide we want to implement doubles rules
+        //checkForDoubles();
 
         int numberRolled = dieOne + dieTwo;
         int newPositionBeforeNormalization = this.positionFromStart + numberRolled;
@@ -50,6 +52,16 @@ public class Player {
         this.positionFromStart += newPositionFromStart;
     }
 
+    public void startTurn() {
+        this.isOnTurn = true;
+    }
+
+    public void endTurn() {
+        this.hasRolled = false;
+        this.rollsAgain = false;
+        this.isOnTurn = false;
+    }
+
     private void trackPreviousRolls(int dieOne, int dieTwo) {
         System.out.println("tracking previous rolls...");
         boolean rolledDoubles = false;
@@ -59,10 +71,19 @@ public class Player {
 
 
     private void checkForDoubles() {
-        if(wereLastRollsDoubles.get(0) == true && wereLastRollsDoubles.get(1) == true && wereLastRollsDoubles.get(2) == true){
-            System.out.println("You go to jail!");
-            this.isInJail = true;
+        //if player is in jail and rolls doubles, they get out and their turn ends
+        if(this.isInJail && wereLastRollsDoubles.get(0) == true){
+            this.isInJail = false;
+            this.isOnTurn = false;
+            return;
         }
+        //if player rolls 3 doubles in a row, they go to jail and their turn ends
+        if(wereLastRollsDoubles.get(0) == true && wereLastRollsDoubles.get(1) == true && wereLastRollsDoubles.get(2) == true){
+            System.out.println("You rolled 3 doubles in a row. Go to jail!");
+            this.isInJail = true;
+            this.isOnTurn = false;
+        }
+        //if player rolls doubles, they go again
         else if(wereLastRollsDoubles.get(0) == true) {
             System.out.println("You get to roll again!");
             this.rollsAgain = true;
