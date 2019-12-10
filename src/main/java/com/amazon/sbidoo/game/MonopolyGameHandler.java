@@ -6,6 +6,9 @@ import com.amazon.sbidoo.Monopoly;
 import com.amazon.sbidoo.game.status.GameStatus;
 import com.amazon.sbidoo.game.status.GameStatusDao;
 import com.amazon.sbidoo.game.status.Player;
+import com.amazon.sbidoo.game.status.Property;
+import com.amazon.sbidoo.game.status.Board;
+import com.amazon.sbidoo.game.status.Space;
 import com.google.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,6 +54,28 @@ public class MonopolyGameHandler implements GameHandler {
         else {
             System.out.println("There are no active players in the game...");
         }
+    }
+
+    private void buyProperty(String userId) {
+        final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
+        Property property = gameStatusForUserId.getProperty();
+        Player playerOnTurn = getPlayerOnTurn(userId);
+        Board board = getGameBoard(userId);
+
+        //this is the index of the piece of property you wanna buy
+        int propertyIndex = playerOnTurn.getPositionFromStart();
+
+        Space.SpaceType spaceType = board.getSpaceMap().get(propertyIndex).getSpaceType();
+        Space.SpaceCategory spaceCategory = board.getSpaceMap().get(propertyIndex).getSpaceCategory();
+        String spaceName = board.getSpaceMap().get(propertyIndex).getSpaceName();
+        Property.SpaceInfo spaceInfo  = property.new SpaceInfo(spaceType, spaceCategory, spaceName);
+        Property.OwnerInfo propertyOwnerInfo = property.getPropertyMap().get(spaceInfo);
+    }
+
+    private Board getGameBoard(String userId) {
+        final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
+        Board board = gameStatusForUserId.getBoard();
+        return board;
     }
 
     private void endTurn(String userId) {
