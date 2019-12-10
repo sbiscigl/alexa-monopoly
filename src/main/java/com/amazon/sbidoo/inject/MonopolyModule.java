@@ -37,5 +37,11 @@ public class MonopolyModule extends AbstractModule {
         bind(Logger.class)
                 .annotatedWith(Names.named("S3GameStatusDaoLogger"))
                 .toInstance(LogManager.getLogger(S3GameStatusDao.class));
+        bind(Logger.class)
+                .annotatedWith(Names.named("MonopolyDieHandlerLogger"))
+                .toInstance(LogManager.getLogger(MonopolyDieHandler.class));
+        bind(Logger.class)
+                .annotatedWith(Names.named("MonopolyEndTurnHandlerLogger"))
+                .toInstance(LogManager.getLogger(MonopolyEndTurnHandler.class));
     }
 }
