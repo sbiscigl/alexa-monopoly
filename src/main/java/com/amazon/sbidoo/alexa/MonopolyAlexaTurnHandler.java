@@ -2,10 +2,19 @@ package com.amazon.sbidoo.alexa;
 
 import com.amazon.sbidoo.game.TurnHandler;
 import com.amazon.sbidoo.game.status.GameStatus;
+import com.amazon.sbidoo.game.status.GameStatusDao;
 import com.amazon.sbidoo.game.status.Player;
+import com.google.inject.Inject;
 import org.apache.commons.lang3.RandomUtils;
 
 public class MonopolyAlexaTurnHandler extends TurnHandler implements AlexaTurnHandler {
+
+    private final GameStatusDao gameStatusDao;
+
+    @Inject
+    public MonopolyAlexaTurnHandler(final GameStatusDao gameStatusDao) {
+        this.gameStatusDao = gameStatusDao;
+    }
 
     @Override
     public AlexaTurnResult handleTurn(String userId, GameStatus gameStatus) {
