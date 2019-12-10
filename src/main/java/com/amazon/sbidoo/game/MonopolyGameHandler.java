@@ -60,6 +60,8 @@ public class MonopolyGameHandler implements GameHandler {
         else {
             System.out.println("There are no active players in the game...");
         }
+
+
     }
 
 }

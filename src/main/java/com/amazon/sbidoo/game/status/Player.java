@@ -22,7 +22,9 @@ public class Player {
     private int positionFromStart;
     private int money;
     private boolean isOnTurn;
+    private boolean isInJail;
     private boolean hasRolled;
+    private boolean rollsAgain;
     private List<Boolean> wereLastRollsDoubles;
 
 
@@ -34,7 +36,7 @@ public class Player {
 
         int numberRolled = dieOne + dieTwo;
         int newPositionBeforeNormalization = this.positionFromStart + numberRolled;
-        int newPositionFromStart = -1;
+        int newPositionFromStart;
         int numOfSpacesOnBoard = 40;
 
         //this case handles when you go back to the beginning of the board
@@ -59,9 +61,11 @@ public class Player {
     private void checkForDoubles() {
         if(wereLastRollsDoubles.get(0) == true && wereLastRollsDoubles.get(1) == true && wereLastRollsDoubles.get(2) == true){
             System.out.println("You go to jail!");
+            this.isInJail = true;
         }
         else if(wereLastRollsDoubles.get(0) == true) {
             System.out.println("You get to roll again!");
+            this.rollsAgain = true;
         }
     }
 }

@@ -39,6 +39,8 @@ public class MonopolyStartHandler implements OnStartHandler {
                 .players(ImmutableSet.of(
                         Player.builder()
                                 .hasRolled(false)
+                                .rollsAgain(false)
+                                .isInJail(false)
                                 .wereLastRollsDoubles(ImmutableList.of())
                                 .isOnTurn(true)
                                 .money(1_500)
@@ -47,10 +49,12 @@ public class MonopolyStartHandler implements OnStartHandler {
                                 .build(),
                         Player.builder()
                                 .hasRolled(false)
+                                .rollsAgain(false)
+                                .isInJail(false)
                                 .wereLastRollsDoubles(ImmutableList.of())
-                                .isOnTurn(true)
+                                .isOnTurn(false)
                                 .money(1_500)
-                                .pieceType(Player.PieceType.Thimble)
+                                .pieceType(Player.PieceType.Boot)
                                 .positionFromStart(0)
                                 .build()
                 ))
