@@ -1,5 +1,7 @@
 package com.amazon.sbidoo.inject;
 
+import com.amazon.sbidoo.alexa.AlexaTurnHandler;
+import com.amazon.sbidoo.alexa.MonopolyAlexaTurnHandler;
 import com.amazon.sbidoo.game.DieRollHandler;
 import com.amazon.sbidoo.game.EndTurnHandler;
 import com.amazon.sbidoo.game.MonopolyDieHandler;
@@ -33,6 +35,8 @@ public class MonopolyModule extends AbstractModule {
                 .to(MonopolyDieHandler.class);
         bind(EndTurnHandler.class)
                 .to(MonopolyEndTurnHandler.class);
+        bind(AlexaTurnHandler.class)
+                .to(MonopolyAlexaTurnHandler.class);
 
         bind(Logger.class)
                 .annotatedWith(Names.named("S3GameStatusDaoLogger"))
