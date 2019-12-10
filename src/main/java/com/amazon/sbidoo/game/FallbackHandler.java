@@ -25,6 +25,7 @@ public class FallbackHandler implements RequestHandler {
     public Optional<Response> handle(HandlerInput handlerInput) {
         return handlerInput.getResponseBuilder()
                 .withSpeech("Can you please repeat that?")
+                .withShouldEndSession(false)
                 .build();
     }
 }

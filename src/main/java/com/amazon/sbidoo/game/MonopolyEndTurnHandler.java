@@ -59,6 +59,7 @@ public class MonopolyEndTurnHandler extends TurnHandler implements EndTurnHandle
                         alexaTurnResult.getDieOne(),
                         alexaTurnResult.getDieTwo(),
                         alexaTurnResult.getEndPositionName()))
+                .withShouldEndSession(false)
                 .build();
     }
 }

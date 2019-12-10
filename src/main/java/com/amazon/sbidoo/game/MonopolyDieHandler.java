@@ -67,6 +67,7 @@ public class MonopolyDieHandler extends TurnHandler implements DieRollHandler {
                                 .getSpaceMap()
                                 .get(playerOnTurn.getPositionFromStart())
                                 .getSpaceName()))
+                .withShouldEndSession(false)
                 .build();
     }
 }
