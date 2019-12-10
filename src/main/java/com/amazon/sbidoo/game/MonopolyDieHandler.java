@@ -40,8 +40,9 @@ public class MonopolyDieHandler extends TurnHandler implements DieRollHandler {
                                final int dieTwo) {
         if (player != null) {
             player.updatePositionFromStart(dieOne, dieTwo);
+        } else {
+            throw new NoPlayerAvailibleException("No active players exist");
         }
-        throw new NoPlayerAvailibleException("No active players exist");
     }
 
     @Override
