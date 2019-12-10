@@ -1,5 +1,6 @@
 package com.amazon.sbidoo.game.status;
 
+import com.amazon.sbidoo.exception.NoGameExistsException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3Object;
@@ -45,6 +46,22 @@ public class S3GameStatusDao implements GameStatusDao {
         return getListOfGameStatusForUser(userId);
     }
 
+    @Override
+    public void updateGameStatusForUserId(final GameStatus gameStatus,
+                                          final String userId) {
+        final String serializedGameStatus = gson.toJson(gameStatus);
+        logger.info("writing object: " + serializedGameStatus);
+        amazonS3.putObject(BUCKET_NAME,
+                String.join("-", userId, String.valueOf(gameStatus.getVersion())),
+                serializedGameStatus);
+    }
+
+    @Override
+    public void deleteAllGameStatusForUserId(String userId) {
+        final List<S3ObjectSummary> s3ObjectSummaries = getS3ObjectSummaries(userId);
+        s3ObjectSummaries.forEach(s3ObjectSummary -> this.amazonS3.deleteObject(BUCKET_NAME, s3ObjectSummary.getKey()));
+    }
+
     private GameStatus getListOfGameStatusForUser(String userId) {
         logger.info("looking in S3 for object");
         List<S3ObjectSummary> summaries = getS3ObjectSummaries(userId);
@@ -54,9 +71,7 @@ public class S3GameStatusDao implements GameStatusDao {
             logger.info("found object: " + s3ObjectSummary);
             return getGameStatusFromS3Object(s3ObjectSummary);
         } else {
-            logger.info("no object found, creating one");
-//            return new GameStatus(0, "initialize");
-            return null;
+            throw new NoGameExistsException("There is no latest game for user");
         }
     }
 
@@ -78,15 +93,5 @@ public class S3GameStatusDao implements GameStatusDao {
         final BufferedReader reader = new BufferedReader(streamReader);
         final String gameStatusString = reader.lines().collect(Collectors.joining());
         return gson.fromJson(gameStatusString, GameStatus.class);
-    }
-
-    @Override
-    public void updateGameStatusForUserId(final GameStatus gameStatus,
-                                          final String userId) {
-        final String serializedGameStatus = gson.toJson(gameStatus);
-        logger.info("writing object: " + serializedGameStatus);
-        amazonS3.putObject(BUCKET_NAME,
-                String.join("-", userId, String.valueOf(gameStatus.getVersion())),
-                serializedGameStatus);
     }
 }
