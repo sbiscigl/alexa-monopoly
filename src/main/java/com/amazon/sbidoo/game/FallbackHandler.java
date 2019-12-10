@@ -4,6 +4,7 @@ import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
 import com.amazon.ask.model.SessionEndedRequest;
+import com.google.inject.Inject;
 
 import java.util.Optional;
 
@@ -11,6 +12,10 @@ import static com.amazon.ask.request.Predicates.intentName;
 import static com.amazon.ask.request.Predicates.requestType;
 
 public class FallbackHandler implements RequestHandler {
+
+    @Inject
+    public FallbackHandler() {
+    }
 
     @Override
     public boolean canHandle(HandlerInput handlerInput) {

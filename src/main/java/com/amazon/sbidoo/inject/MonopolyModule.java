@@ -38,8 +38,7 @@ public class MonopolyModule extends AbstractModule {
                 .to(MonopolyEndTurnHandler.class);
         bind(AlexaTurnHandler.class)
                 .to(MonopolyAlexaTurnHandler.class);
-        bind(FallbackHandler.class)
-                .to(FallbackHandler.class);
+        bind(FallbackHandler.class);
 
         bind(Logger.class)
                 .annotatedWith(Names.named("S3GameStatusDaoLogger"))
