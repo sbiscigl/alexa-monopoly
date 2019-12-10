@@ -42,7 +42,6 @@ public class S3GameStatusDao implements GameStatusDao {
 
     @Override
     public GameStatus getGameStatusForUserId(final String userId) {
-        this.amazonS3.listBuckets().forEach(logger::info);
         return getListOfGameStatusForUser(userId);
     }
 
@@ -82,8 +81,6 @@ public class S3GameStatusDao implements GameStatusDao {
             listing = amazonS3.listNextBatchOfObjects (listing);
             summaries.addAll (listing.getObjectSummaries());
         }
-        logger.info("found objects: ");
-        summaries.forEach(logger::info);
         return summaries;
     }
 

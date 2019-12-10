@@ -15,9 +15,11 @@ public class FallbackHandler implements RequestHandler {
     @Override
     public boolean canHandle(HandlerInput handlerInput) {
         return handlerInput.matches(intentName("AMAZON.HelpIntent")
-                .or(intentName("AMAZON.StopIntent"))
                 .or(intentName("AMAZON.NavigateHomeIntent"))
                 .or(intentName("AMAZON.CancelIntent"))
+                .or(intentName("AMAZON.YesIntent"))
+                .or(intentName("AMAZON.FallBackIntent"))
+                .or(intentName("AMAZON.NoIntent"))
                 .or(requestType(SessionEndedRequest.class)));
     }
 
