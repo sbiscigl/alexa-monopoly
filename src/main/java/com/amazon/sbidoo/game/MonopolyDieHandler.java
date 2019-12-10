@@ -19,7 +19,7 @@ import static com.amazon.ask.request.Predicates.intentName;
 
 public class MonopolyDieHandler extends TurnHandler implements DieRollHandler {
 
-    public static final String DIE_ROLL_INTENT = "DieRollIntent";
+    public static final String DIE_ROLL_INTENT = "DiceRollIntent";
     public static final String DIE_ONE = "DieOne";
     public static final String DIE_TWO = "DieTwo";
     public static final String ROLL_STATUS_FORMAT = "You are currently on %s";
