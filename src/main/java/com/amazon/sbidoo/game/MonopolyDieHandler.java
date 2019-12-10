@@ -8,6 +8,7 @@ import com.amazon.sbidoo.exception.NoPlayerAvailibleException;
 import com.amazon.sbidoo.game.status.GameStatus;
 import com.amazon.sbidoo.game.status.GameStatusDao;
 import com.amazon.sbidoo.game.status.Player;
+import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.apache.logging.log4j.Logger;
 
@@ -26,6 +27,7 @@ public class MonopolyDieHandler extends TurnHandler implements DieRollHandler {
     private final Logger logger;
     private final GameStatusDao gameStatusDao;
 
+    @Inject
     public MonopolyDieHandler(@Named("MonopolyDieHandlerLogger") final Logger logger,
                               final GameStatusDao gameStatusDao) {
         this.logger = logger;
