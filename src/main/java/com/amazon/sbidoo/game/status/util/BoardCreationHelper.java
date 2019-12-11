@@ -165,7 +165,7 @@ final public class BoardCreationHelper {
                                 .spaceType(Space.SpaceType.RailRoad)
                                 .spaceCategory(Space.SpaceCategory.RailRoad)
                                 .price(200)
-                                .spaceName("B&O Rail Road")
+                                .spaceName("B and O Rail Road")
                                 .build())
                         .put(26, Space.builder()
                                 .spaceType(Space.SpaceType.Property)
