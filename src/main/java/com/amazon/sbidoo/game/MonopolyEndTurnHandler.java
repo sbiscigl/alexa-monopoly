@@ -63,17 +63,17 @@ public class MonopolyEndTurnHandler extends PlayerGameStatus implements EndTurnH
 
     private String buildSpeechString(AlexaTurnResult alexaTurnResult) {
         final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(String.format("I rolled %d and %d.", alexaTurnResult.getDieOne(), alexaTurnResult.getDieTwo()));
-        stringBuilder.append(String.format("I am currently on %s.",
+        stringBuilder.append(String.format("I rolled %d and %d. ", alexaTurnResult.getDieOne(), alexaTurnResult.getDieTwo()));
+        stringBuilder.append(String.format("I am currently on %s. ",
                 alexaTurnResult.getEndPositionName()));
         if (!alexaTurnResult.getPurchaseMessage().isEmpty()) {
-            stringBuilder.append("And ").append(alexaTurnResult.getPurchaseMessage()).append(".");
+            stringBuilder.append("And ").append(alexaTurnResult.getPurchaseMessage()).append(". ");
         }
         if (!alexaTurnResult.getChargedStatement().isEmpty()) {
-            stringBuilder.append("And ").append(alexaTurnResult.getChargedStatement()).append(".");
+            stringBuilder.append("And ").append(alexaTurnResult.getChargedStatement()).append(". ");
         }
         if (!alexaTurnResult.getChanceResult().isEmpty()) {
-            stringBuilder.append("And ").append(alexaTurnResult.getChanceResult()).append(".");
+            stringBuilder.append("And ").append(alexaTurnResult.getChanceResult()).append(". ");
         }
         return stringBuilder.toString();
     }

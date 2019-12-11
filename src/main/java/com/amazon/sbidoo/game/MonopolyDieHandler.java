@@ -100,16 +100,16 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
                                      String chargedStatement,
                                      String handleDiceRoll) {
         final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(String.format("You are currently on %s.",
+        stringBuilder.append(String.format("You are currently on %s. ",
                 gameStatusForUserId.getBoard()
                         .getSpaceMap()
                         .get(playerOnTurn.getPositionFromStart())
                         .getSpaceName()));
         if (!chargedStatement.isEmpty()) {
-            stringBuilder.append("And ").append(chargedStatement).append(".");
+            stringBuilder.append("And ").append(chargedStatement).append(". ");
         }
         if (!handleDiceRoll.isEmpty()) {
-            stringBuilder.append("And ").append(handleDiceRoll).append(".");
+            stringBuilder.append("And ").append(handleDiceRoll).append(". ");
         }
         return stringBuilder.toString();
     }

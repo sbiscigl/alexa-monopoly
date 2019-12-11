@@ -68,7 +68,7 @@ public class Player {
     }
 
     private void trackPreviousRolls(int dieOne, int dieTwo) {
-        System.out.println("tracking previous rolls...");
+        System.out.println("tracking previous rolls... ");
         boolean rolledDoubles = false;
         if (dieOne == dieTwo) { rolledDoubles = true; }
         wereLastRollsDoubles.add(0, rolledDoubles);
@@ -84,13 +84,13 @@ public class Player {
         }
         //if player rolls 3 doubles in a row, they go to jail and their turn ends
         if(wereLastRollsDoubles.get(0) == true && wereLastRollsDoubles.get(1) == true && wereLastRollsDoubles.get(2) == true){
-            System.out.println("You rolled 3 doubles in a row. Go to jail!");
+            System.out.println("You rolled 3 doubles in a row. Go to jail! ");
             this.isInJail = true;
             this.isOnTurn = false;
         }
         //if player rolls doubles, they go again
         else if(wereLastRollsDoubles.get(0) == true) {
-            System.out.println("You get to roll again!");
+            System.out.println("You get to roll again! ");
             this.rollsAgain = true;
         }
     }

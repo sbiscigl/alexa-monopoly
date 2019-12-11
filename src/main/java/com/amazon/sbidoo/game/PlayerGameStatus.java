@@ -60,10 +60,10 @@ abstract public class PlayerGameStatus {
         int playerMoney = playerOnTurn.getMoney();
         StringBuilder sb = new StringBuilder();
         if(spaceType == Space.SpaceType.IncomeTax || spaceType == Space.SpaceType.LuxuryTax) {
-            sb.append("This space is taxed ").append(spacePrice).append(" dollars.");
+            sb.append("This space is taxed ").append(spacePrice).append(" dollars. ");
             playerOnTurn.updateMoney(spacePrice);
             playerMoney = playerOnTurn.getMoney();
-            sb.append("New balance is ").append(playerMoney).append(" dollars.");
+            sb.append("New balance is ").append(playerMoney).append(" dollars. ");
             return sb.toString();
         }
 
@@ -78,20 +78,20 @@ abstract public class PlayerGameStatus {
             int hotels = propertyOwnerInfo.getHotels();
 
             //Alexa should say this
-            sb.append("This property is owned by ").append(ownerPieceType).append(".");
+            sb.append("This property is owned by ").append(ownerPieceType).append(". ");
             int chargePrice = calculateChargePrice(spacePrice, houses, hotels, propertyMap, spaceType, spaceCategory, ownerPieceType);
             if(playerMoney >= chargePrice) {
                 //Alexa should say this
-                sb.append("Charging ").append(chargePrice).append(" dollars.");
+                sb.append("Charging ").append(chargePrice).append(" dollars. ");
                 playerMoney -= chargePrice;
                 playerOnTurn.updateMoney(playerMoney);
                 //Alexa should say this
-                sb.append("New balance is ").append(playerMoney).append(" dollars.");
+                sb.append("New balance is ").append(playerMoney).append(" dollars. ");
                 return sb.toString();
             }
             else {
                 //Alexa should say this
-                sb.append("Not enough money to pay. " + ownerPieceType + "wins!");
+                sb.append("Not enough money to pay. " + ownerPieceType + "wins! ");
                 return sb.toString();
             }
         }

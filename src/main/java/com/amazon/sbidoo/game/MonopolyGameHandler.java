@@ -50,7 +50,7 @@ public class MonopolyGameHandler implements GameHandler {
             chargePlayerIfSpaceIsOwned(userId, playerOnTurn);
         }
         else {
-            System.out.println("There are no active players in the game...");
+            System.out.println("There are no active players in the game... ");
         }
     }
 
@@ -78,21 +78,21 @@ public class MonopolyGameHandler implements GameHandler {
             int hotels = propertyOwnerInfo.getHotels();
 
             //Alexa should say this
-            System.out.println("This property is owned by " + ownerPieceType + ".");
+            System.out.println("This property is owned by " + ownerPieceType + ". ");
             int chargePrice = calculateChargePrice(spacePrice, houses, hotels, propertyMap, spaceType, spaceCategory, ownerPieceType);
             int playerMoney = playerOnTurn.getMoney();
             if(playerMoney >= chargePrice) {
                 //Alexa should say this
-                System.out.println("Charging you " + chargePrice + " dollars.");
+                System.out.println("Charging you " + chargePrice + " dollars. ");
                 playerMoney -= chargePrice;
                 playerOnTurn.updateMoney(playerMoney);
                 //Alexa should say this
-                System.out.println("Your new balance is " + playerMoney + " dollars.");
+                System.out.println("Your new balance is " + playerMoney + " dollars. ");
                 return;
             }
             else {
                 //Alexa should say this
-                System.out.println("You don't have enough money to pay me, I win!");
+                System.out.println("You don't have enough money to pay me, I win! ");
                 return;
             }
 
@@ -160,7 +160,7 @@ public class MonopolyGameHandler implements GameHandler {
 
         if(spacePrice == 0){
             //Alexa should say this
-            System.out.println("This space cannot be purchased!");
+            System.out.println("This space cannot be purchased! ");
             return;
         }
 

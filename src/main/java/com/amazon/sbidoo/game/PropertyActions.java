@@ -31,7 +31,7 @@ abstract public class PropertyActions extends PlayerGameStatus {
         if (spacePrice <= 0) {
             //Alexa should say this
             return PropertyPurchaseReturn.builder()
-                    .message("This space cannot be purchased!")
+                    .message("This space cannot be purchased! ")
                     .build();
         }
 
