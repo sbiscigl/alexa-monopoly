@@ -175,11 +175,11 @@ public class MonopolyGameHandler implements GameHandler {
         if(property.getPropertyMap().containsKey(spaceInfo)){
             Player.PieceType ownerPieceType = property.getPropertyMap().get(spaceInfo).getOwner();
             //Alexa should say this
-            System.out.println("You cannot buy this property because it is already owned by the " + ownerPieceType);
+            System.out.println("You cannot buy this property because it is already owned by the " + ownerPieceType + ". ");
         }
         else if(!playerHasEnoughMoneyForPurchase(playerMoney, spacePrice)) {
             //Alexa should say this
-            System.out.println("You do not have enough money to purchase this property");
+            System.out.println("You do not have enough money to purchase this property. ");
         }
         else {
             playerOnTurn.updateMoney(spacePrice);

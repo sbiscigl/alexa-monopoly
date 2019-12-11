@@ -33,7 +33,7 @@ public class MonopolyEndHandler implements OnEndHandler {
     public Optional<Response> handle(HandlerInput handlerInput) {
         endGame(handlerInput.getRequestEnvelope().getSession().getUser().getUserId());
         return handlerInput.getResponseBuilder()
-                .withSpeech("Thank you for playing monopoly")
+                .withSpeech("Thank you for playing monopoly. ")
                 .build();
     }
 }

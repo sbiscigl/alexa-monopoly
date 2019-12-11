@@ -41,7 +41,7 @@ abstract public class PropertyActions extends PlayerGameStatus {
 
         if(spaceType == Space.SpaceType.IncomeTax || spaceType == Space.SpaceType.LuxuryTax) {
             return PropertyPurchaseReturn.builder()
-                    .message("Cannot buy this space because it is not a property")
+                    .message("Cannot buy this space because it is not a property. ")
                     .build();
         }
 
@@ -52,18 +52,18 @@ abstract public class PropertyActions extends PlayerGameStatus {
         if (property.getPropertyMap().containsKey(spaceInfo)) {
             Player.PieceType ownerPieceType = property.getPropertyMap().get(spaceInfo).getOwner();
             return PropertyPurchaseReturn.builder()
-                    .message("Cannot buy this property because it is already owned by the " + ownerPieceType)
+                    .message("Cannot buy this property because it is already owned by the " + ownerPieceType + ". ")
                     .build();
         } else if (!playerHasEnoughMoneyForPurchase(playerMoney, spacePrice)) {
             return PropertyPurchaseReturn.builder()
-                    .message("Do not have enough money to purchase this property")
+                    .message("Do not have enough money to purchase this property. ")
                     .build();
         } else {
             player.updateMoney(spacePrice);
             OwnerInfo propertyOwnerInfo = new OwnerInfo(player.getPieceType(), 0 ,0);
             property.getPropertyMap().put(spaceInfo, propertyOwnerInfo);
             return PropertyPurchaseReturn.builder()
-                    .message("Purchased " + spaceName + " current balance is " + player.getMoney())
+                    .message("Purchased " + spaceName + " current balance is " + player.getMoney() +  " dollars. ")
                     .build();
         }
     }

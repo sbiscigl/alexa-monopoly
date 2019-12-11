@@ -89,7 +89,7 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
                     .build();
         } catch (Exception e) {
             return handlerInput.getResponseBuilder()
-                    .withSpeech("Could you please repeat that?")
+                    .withSpeech("Could you please repeat that? ")
                     .withShouldEndSession(false)
                     .build();
         }

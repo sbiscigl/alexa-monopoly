@@ -66,7 +66,7 @@ public class MonopolyAlexaPlayerGameStatus extends PropertyActions implements Al
                         .get(playerOnTurn.getPositionFromStart())
                         .getSpaceName())
                 .purchaseMessage(propertyPurchaseReturn.orElse(PropertyPurchaseReturn.builder()
-                        .message("could Not buy property")
+                        .message("could Not buy property. ")
                         .build())
                         .getMessage())
                 .chargedStatement(chargedStatement)

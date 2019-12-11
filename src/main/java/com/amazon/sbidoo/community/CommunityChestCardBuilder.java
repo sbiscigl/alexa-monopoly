@@ -17,7 +17,7 @@ public class CommunityChestCardBuilder {
                             player.setPositionFromStart(0);
                             player.setMoney(player.getMoney() + 200);
                             banker.setBankroll(banker.getBankroll() - 200);
-                            return "Advance to go collect 200 dollars. Current balance is " + player.getMoney();
+                            return "Advance to go collect 200 dollars. Current balance is " + player.getMoney() + " dollars";
                         })
                         .build(),
                 Card.builder()
@@ -25,7 +25,7 @@ public class CommunityChestCardBuilder {
                         .cardApplier((player, banker) -> {
                             player.setMoney(player.getMoney() + 200);
                             banker.setBankroll(banker.getBankroll() - 200);
-                            return "Bank error in your favor, collect 200 dollars. Current balance is " + player.getMoney();
+                            return "Bank error in your favor, collect 200 dollars. Current balance is " + player.getMoney() + " dollars";
                         })
                         .build(),
                 Card.builder()
@@ -33,7 +33,7 @@ public class CommunityChestCardBuilder {
                         .cardApplier((player, banker) -> {
                             player.setMoney(player.getMoney() - 100);
                             banker.setBankroll(banker.getBankroll() + 100);
-                            return "Hospital Fees, pay 100 dollars. Current balance is " + player.getMoney();
+                            return "Hospital Fees, pay 100 dollars. Current balance is " + player.getMoney() + " dollars";
                         })
                         .build(),
                 Card.builder()
@@ -41,7 +41,7 @@ public class CommunityChestCardBuilder {
                         .cardApplier((player, banker) -> {
                             player.setMoney(player.getMoney() - 25);
                             banker.setBankroll(banker.getBankroll() + 25);
-                            return "Collect 25 dollar consultancy fee. Current balance is " + player.getMoney();
+                            return "Collect 25 dollar consultancy fee. Current balance is " + player.getMoney() + " dollars";
                         })
                         .build()
         );

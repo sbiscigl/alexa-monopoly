@@ -15,7 +15,7 @@ final public class ChanceCardBuilder {
                         .message("Your Building Loan matures collect 150 dollars")
                         .cardApplier((player, banker) -> {
                             player.setMoney(player.getMoney() + 150);
-                            return "Your Building Loan matures collect 150 dollars. Current balance is " + player.getMoney();
+                            return "Your Building Loan matures collect 150 dollars. Current balance is " + player.getMoney() + " dollars";
                         })
                         .build(),
                 Card.builder()
@@ -27,14 +27,14 @@ final public class ChanceCardBuilder {
                             } else {
                                 player.setPositionFromStart(39 - Math.abs(spacesBack));
                             }
-                            return "Go back three spaces. Current balance is " + player.getMoney();
+                            return "Go back three spaces. Current balance is " + player.getMoney() + " dollars";
                         })
                         .build(),
                 Card.builder()
                         .message("Speeding fine, pay 15 dollars")
                         .cardApplier((player, banker) -> {
                             player.setMoney(player.getMoney() - 15);
-                            return "Speeding fine, pay 15 dollars. Current balance is " + player.getMoney();
+                            return "Speeding fine, pay 15 dollars. Current balance is " + player.getMoney() + " dollars";
                         })
                         .build(),
                 Card.builder()
@@ -42,7 +42,7 @@ final public class ChanceCardBuilder {
                         .cardApplier((player, banker) -> {
                             player.setPositionFromStart(0);
                             player.setMoney(player.getMoney() + 200);
-                            return "Collect 200 dollars and for to start. Current balance is " + player.getMoney();
+                            return "Collect 200 dollars and for to start. Current balance is " + player.getMoney() + " dollars";
                         })
                         .build()
         );
