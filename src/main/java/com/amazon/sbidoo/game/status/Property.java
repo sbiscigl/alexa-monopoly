@@ -25,6 +25,12 @@ public class Property {
         private int houses;
         private int hotels;
 
+        public OwnerInfo(Player.PieceType owner, int houses, int hotels) {
+            this.owner = owner;
+            this.houses = houses;
+            this.hotels = hotels;
+        }
+
         public void setOwner(Player.PieceType owner){
             this.owner = owner;
         }

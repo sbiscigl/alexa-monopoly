@@ -52,10 +52,8 @@ abstract public class PropertyActions extends PlayerGameStatus {
                     .build();
         } else {
             player.updateMoney(spacePrice);
-            Property.OwnerInfo propertyOwnerInfo = property.getPropertyMap().get(spaceInfo);
-            propertyOwnerInfo.setOwner(player.getPieceType());
-            propertyOwnerInfo.setHouses(0);
-            propertyOwnerInfo.setHotels(0);
+            Property.OwnerInfo propertyOwnerInfo = property. new OwnerInfo(player.getPieceType(), 0 ,0);
+            property.getPropertyMap().put(spaceInfo, propertyOwnerInfo);
             return PropertyPurchaseReturn.builder()
                     .message("You purchased " + spaceName)
                     .build();
