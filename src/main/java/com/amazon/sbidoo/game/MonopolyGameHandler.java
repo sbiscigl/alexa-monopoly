@@ -84,8 +84,8 @@ public class MonopolyGameHandler implements GameHandler {
             if(playerMoney >= chargePrice) {
                 //Alexa should say this
                 System.out.println("Charging you " + chargePrice + " dollars. ");
-                playerMoney -= chargePrice;
-                playerOnTurn.updateMoney(playerMoney);
+                playerOnTurn.updateMoney(chargePrice);
+                playerMoney = playerOnTurn.getMoney();
                 //Alexa should say this
                 System.out.println("Your new balance is " + playerMoney + " dollars. ");
                 return;

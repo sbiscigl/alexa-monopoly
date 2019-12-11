@@ -83,8 +83,8 @@ abstract public class PlayerGameStatus {
             if(playerMoney >= chargePrice) {
                 //Alexa should say this
                 sb.append("Charging ").append(chargePrice).append(" dollars. ");
-                playerMoney -= chargePrice;
-                playerOnTurn.updateMoney(playerMoney);
+                playerOnTurn.updateMoney(chargePrice);
+                playerMoney = playerOnTurn.getMoney();
                 //Alexa should say this
                 sb.append("New balance is ").append(playerMoney).append(" dollars. ");
                 return sb.toString();
