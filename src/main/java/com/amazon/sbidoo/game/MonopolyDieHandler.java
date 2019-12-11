@@ -106,10 +106,10 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
                         .get(playerOnTurn.getPositionFromStart())
                         .getSpaceName()));
         if (!chargedStatement.isEmpty()) {
-            stringBuilder.append("And ").append(chargedStatement).append(". ");
+            stringBuilder.append(chargedStatement).append(". ");
         }
         if (!handleDiceRoll.isEmpty()) {
-            stringBuilder.append("And ").append(handleDiceRoll).append(". ");
+            stringBuilder.append(handleDiceRoll).append(". ");
         }
         return stringBuilder.toString();
     }

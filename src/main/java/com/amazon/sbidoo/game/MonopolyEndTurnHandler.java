@@ -67,13 +67,13 @@ public class MonopolyEndTurnHandler extends PlayerGameStatus implements EndTurnH
         stringBuilder.append(String.format("I am currently on %s. ",
                 alexaTurnResult.getEndPositionName()));
         if (!alexaTurnResult.getPurchaseMessage().isEmpty()) {
-            stringBuilder.append("And ").append(alexaTurnResult.getPurchaseMessage()).append(". ");
+            stringBuilder.append(alexaTurnResult.getPurchaseMessage()).append(". ");
         }
         if (!alexaTurnResult.getChargedStatement().isEmpty()) {
-            stringBuilder.append("And ").append(alexaTurnResult.getChargedStatement()).append(". ");
+            stringBuilder.append(alexaTurnResult.getChargedStatement()).append(". ");
         }
         if (!alexaTurnResult.getChanceResult().isEmpty()) {
-            stringBuilder.append("And ").append(alexaTurnResult.getChanceResult()).append(". ");
+            stringBuilder.append(alexaTurnResult.getChanceResult()).append(". ");
         }
         return stringBuilder.toString();
     }

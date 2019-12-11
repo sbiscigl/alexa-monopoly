@@ -99,7 +99,7 @@ final public class BoardCreationHelper {
                                 .spaceType(Space.SpaceType.Property)
                                 .spaceCategory(Space.SpaceCategory.Pink)
                                 .price(150)
-                                .spaceName("Virgina Avenue")
+                                .spaceName("Virginia Avenue")
                                 .build())
                         .put(15, Space.builder()
                                 .spaceType(Space.SpaceType.RailRoad)
