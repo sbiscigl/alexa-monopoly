@@ -66,6 +66,7 @@ public class MonopolyGameHandler implements GameHandler {
         if(spacePrice == 0){
             //Alexa should say this
             System.out.println("This space cannot be purchased!");
+            return;
         }
 
         Space.SpaceType spaceType = board.getSpaceMap().get(propertyIndex).getSpaceType();

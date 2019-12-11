@@ -5,14 +5,17 @@ import com.amazon.sbidoo.alexa.MonopolyAlexaPlayerGameStatus;
 import com.amazon.sbidoo.game.DieRollHandler;
 import com.amazon.sbidoo.game.EndTurnHandler;
 import com.amazon.sbidoo.game.FallbackHandler;
+import com.amazon.sbidoo.game.HousePurchaseHandler;
 import com.amazon.sbidoo.game.MonopolyDieHandler;
 import com.amazon.sbidoo.game.MonopolyEndHandler;
 import com.amazon.sbidoo.game.MonopolyEndPlayerGameStatus;
 import com.amazon.sbidoo.game.MonopolyHotelPurchaseHandler;
 import com.amazon.sbidoo.game.MonopolyHousePurchaseHandler;
+import com.amazon.sbidoo.game.MonopolyPropertyPurchaseHandler;
 import com.amazon.sbidoo.game.MonopolyStartHandler;
 import com.amazon.sbidoo.game.OnEndHandler;
 import com.amazon.sbidoo.game.OnStartHandler;
+import com.amazon.sbidoo.game.PropertyPurchaseHandler;
 import com.amazon.sbidoo.game.status.GameStatusDao;
 import com.amazon.sbidoo.game.status.S3GameStatusDao;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
@@ -40,6 +43,12 @@ public class MonopolyModule extends AbstractModule {
                 .to(MonopolyEndPlayerGameStatus.class);
         bind(AlexaTurnHandler.class)
                 .to(MonopolyAlexaPlayerGameStatus.class);
+        bind(PropertyPurchaseHandler.class)
+                .to(MonopolyPropertyPurchaseHandler.class);
+        bind(HousePurchaseHandler.class)
+                .to(MonopolyHousePurchaseHandler.class);
+        bind(MonopolyHotelPurchaseHandler.class)
+                .to(MonopolyHotelPurchaseHandler.class);
         bind(FallbackHandler.class);
 
         bind(Logger.class)
@@ -60,5 +69,8 @@ public class MonopolyModule extends AbstractModule {
         bind(Logger.class)
                 .annotatedWith(Names.named("MonopolyHousePurchaseHandlerLogger"))
                 .toInstance(LogManager.getLogger(MonopolyHousePurchaseHandler.class));
+        bind(Logger.class)
+                .annotatedWith(Names.named("MonopolyPropertyPurchaseHandlerLogger"))
+                .toInstance(LogManager.getLogger(MonopolyPropertyPurchaseHandler.class));
     }
 }
