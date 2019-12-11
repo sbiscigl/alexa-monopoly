@@ -68,12 +68,6 @@ public class MonopolyModule extends AbstractModule {
                 .to(MonopolyChanceDao.class);
         bind(CommunityChestDao.class)
                 .to(MonopolyCommunityChestDao.class);
-        bind(List.class)
-                .annotatedWith(Names.named("ChanceCards"))
-                .toInstance(ChanceCardBuilder.buildChanceCards());
-        bind(List.class)
-                .annotatedWith(Names.named("CommunityChestCards"))
-                .toInstance(CommunityChestCardBuilder.buildCommunityChanceCards());
         bind(FallbackHandler.class);
 
         bind(Logger.class)

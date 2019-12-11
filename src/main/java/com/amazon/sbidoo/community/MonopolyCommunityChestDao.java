@@ -4,7 +4,6 @@ import com.amazon.sbidoo.card.Card;
 import com.amazon.sbidoo.game.status.Banker;
 import com.amazon.sbidoo.game.status.Player;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.List;
@@ -14,8 +13,8 @@ public class MonopolyCommunityChestDao implements CommunityChestDao {
     private final List<Card> communityChestCards;
 
     @Inject
-    public MonopolyCommunityChestDao(@Named("CommunityChestCards") List<Card> communityChestCards) {
-        this.communityChestCards = communityChestCards;
+    public MonopolyCommunityChestDao() {
+        this.communityChestCards = CommunityChestCardBuilder.buildCommunityChanceCards();
     }
 
 
