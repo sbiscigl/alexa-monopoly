@@ -24,6 +24,22 @@ public class Property {
         private Player.PieceType owner;
         private int houses;
         private int hotels;
+
+        public void setOwner(Player.PieceType owner){
+            this.owner = owner;
+        }
+
+        public Player.PieceType getOwner(){
+            return this.owner;
+        }
+
+        public void setHouses(int houses) {
+            this.houses = houses;
+        }
+
+        public void setHotels(int hotels) {
+            this.hotels = hotels;
+        }
     }
 
     private final Map<SpaceInfo, OwnerInfo> propertyMap;

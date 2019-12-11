@@ -52,6 +52,10 @@ public class Player {
         this.positionFromStart = newPositionFromStart;
     }
 
+    public void updateMoney(int moneySpent) {
+        this.money -= moneySpent;
+    }
+
     public void startTurn() {
         this.isOnTurn = true;
     }

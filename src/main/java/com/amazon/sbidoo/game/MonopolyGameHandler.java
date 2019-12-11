@@ -34,22 +34,17 @@ public class MonopolyGameHandler implements GameHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
-        whatever(handlerInput.getRequestEnvelope().getSession().getUser().getUserId());
         return handlerInput.getResponseBuilder()
                 .withSpeech("this really updated")
                 .withShouldEndSession(false)
                 .build();
     }
 
-    private void whatever(String userId) {
-        final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
-//        this.gameStatusDao.updateGameStatusForUserId(gameStatus, userId);
-    }
-
     private void handleDiceRoll(String userId, int dieOne, int dieTwo) {
         Player playerOnTurn = getPlayerOnTurn(userId);
         if(playerOnTurn != null) {
             playerOnTurn.updatePositionFromStart(dieOne, dieTwo);
+            //check if someone owns the spot you just landed on
         }
         else {
             System.out.println("There are no active players in the game...");
@@ -62,14 +57,46 @@ public class MonopolyGameHandler implements GameHandler {
         Player playerOnTurn = getPlayerOnTurn(userId);
         Board board = getGameBoard(userId);
 
-        //this is the index of the piece of property you wanna buy
+        //This is the index of the piece of property you wanna buy
         int propertyIndex = playerOnTurn.getPositionFromStart();
+        Space space = board.getSpaceMap().get(propertyIndex);
+        int spacePrice = space.getPrice();
+        int playerMoney = playerOnTurn.getMoney();
+
+        if(spacePrice == 0){
+            //Alexa should say this
+            System.out.println("This space cannot be purchased!");
+        }
 
         Space.SpaceType spaceType = board.getSpaceMap().get(propertyIndex).getSpaceType();
         Space.SpaceCategory spaceCategory = board.getSpaceMap().get(propertyIndex).getSpaceCategory();
         String spaceName = board.getSpaceMap().get(propertyIndex).getSpaceName();
+
+        //This is the key to the propertyMap
         Property.SpaceInfo spaceInfo  = property.new SpaceInfo(spaceType, spaceCategory, spaceName);
-        Property.OwnerInfo propertyOwnerInfo = property.getPropertyMap().get(spaceInfo);
+
+        //Check if the spaceInfo, ownerInfo entry is already in the map, if not allow the player to proceed with purchase
+        if(property.getPropertyMap().containsKey(spaceInfo)){
+            Player.PieceType ownerPieceType = property.getPropertyMap().get(spaceInfo).getOwner();
+            //Alexa should say this
+            System.out.println("You cannot buy this property because it is already owned by the " + ownerPieceType);
+        }
+        else if(!playerHasEnoughMoneyForPurchase(playerMoney, spacePrice)) {
+            //Alexa should say this
+            System.out.println("You do not have enough money to purchase this property");
+        }
+        else {
+            playerOnTurn.updateMoney(spacePrice);
+            Property.OwnerInfo propertyOwnerInfo = property.getPropertyMap().get(spaceInfo);
+            propertyOwnerInfo.setOwner(playerOnTurn.getPieceType());
+            propertyOwnerInfo.setHouses(0);
+            propertyOwnerInfo.setHotels(0);
+        }
+        return;
+    }
+
+    private boolean playerHasEnoughMoneyForPurchase(int playerMoney, int price) {
+        return ((playerMoney >= price) ? true : false);
     }
 
     private Board getGameBoard(String userId) {
