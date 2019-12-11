@@ -6,7 +6,7 @@ import com.amazon.sbidoo.game.status.Player;
 
 import java.util.Set;
 
-abstract public class TurnHandler {
+abstract public class PlayerGameStatus {
     protected GameStatusDao gameStatusDao;
 
     protected void endTurn(GameStatus gameStatus) {

@@ -1,6 +1,6 @@
 package com.amazon.sbidoo.alexa;
 
-import com.amazon.sbidoo.game.TurnHandler;
+import com.amazon.sbidoo.game.PlayerGameStatus;
 import com.amazon.sbidoo.game.status.GameStatus;
 import com.amazon.sbidoo.game.status.GameStatusDao;
 import com.amazon.sbidoo.game.status.Player;
@@ -9,13 +9,13 @@ import com.google.inject.name.Named;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.logging.log4j.Logger;
 
-public class MonopolyAlexaTurnHandler extends TurnHandler implements AlexaTurnHandler {
+public class MonopolyAlexaPlayerGameStatus extends PlayerGameStatus implements AlexaTurnHandler {
 
     private final Logger logger;
 
     @Inject
-    public MonopolyAlexaTurnHandler(@Named("MonopolyAlexaTurnHandlerLogger")Logger logger,
-                                    final GameStatusDao gameStatusDao) {
+    public MonopolyAlexaPlayerGameStatus(@Named("MonopolyAlexaTurnHandlerLogger")Logger logger,
+                                         final GameStatusDao gameStatusDao) {
         this.gameStatusDao = gameStatusDao;
         this.logger = logger;
     }

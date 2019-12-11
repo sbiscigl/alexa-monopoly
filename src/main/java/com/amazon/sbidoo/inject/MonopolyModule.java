@@ -1,13 +1,13 @@
 package com.amazon.sbidoo.inject;
 
 import com.amazon.sbidoo.alexa.AlexaTurnHandler;
-import com.amazon.sbidoo.alexa.MonopolyAlexaTurnHandler;
+import com.amazon.sbidoo.alexa.MonopolyAlexaPlayerGameStatus;
 import com.amazon.sbidoo.game.DieRollHandler;
 import com.amazon.sbidoo.game.EndTurnHandler;
 import com.amazon.sbidoo.game.FallbackHandler;
 import com.amazon.sbidoo.game.MonopolyDieHandler;
 import com.amazon.sbidoo.game.MonopolyEndHandler;
-import com.amazon.sbidoo.game.MonopolyEndTurnHandler;
+import com.amazon.sbidoo.game.MonopolyEndPlayerGameStatus;
 import com.amazon.sbidoo.game.MonopolyStartHandler;
 import com.amazon.sbidoo.game.OnEndHandler;
 import com.amazon.sbidoo.game.OnStartHandler;
@@ -35,9 +35,9 @@ public class MonopolyModule extends AbstractModule {
         bind(DieRollHandler.class)
                 .to(MonopolyDieHandler.class);
         bind(EndTurnHandler.class)
-                .to(MonopolyEndTurnHandler.class);
+                .to(MonopolyEndPlayerGameStatus.class);
         bind(AlexaTurnHandler.class)
-                .to(MonopolyAlexaTurnHandler.class);
+                .to(MonopolyAlexaPlayerGameStatus.class);
         bind(FallbackHandler.class);
 
         bind(Logger.class)
@@ -48,9 +48,9 @@ public class MonopolyModule extends AbstractModule {
                 .toInstance(LogManager.getLogger(MonopolyDieHandler.class));
         bind(Logger.class)
                 .annotatedWith(Names.named("MonopolyEndTurnHandlerLogger"))
-                .toInstance(LogManager.getLogger(MonopolyEndTurnHandler.class));
+                .toInstance(LogManager.getLogger(MonopolyEndPlayerGameStatus.class));
         bind(Logger.class)
                 .annotatedWith(Names.named("MonopolyAlexaTurnHandlerLogger"))
-                .toInstance(LogManager.getLogger(MonopolyAlexaTurnHandler.class));
+                .toInstance(LogManager.getLogger(MonopolyAlexaPlayerGameStatus.class));
     }
 }

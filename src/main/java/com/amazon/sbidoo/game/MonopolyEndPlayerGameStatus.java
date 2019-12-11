@@ -14,7 +14,7 @@ import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.intentName;
 
-public class MonopolyEndTurnHandler extends TurnHandler implements EndTurnHandler{
+public class MonopolyEndPlayerGameStatus extends PlayerGameStatus implements EndTurnHandler{
 
     public static final String END_TURN_INTENT = "EndTurnIntent";
     public static final String ALEXA_RESPONSE_FORMAT = "I rolled a %s and a %s, and am currently at %s";
@@ -23,9 +23,9 @@ public class MonopolyEndTurnHandler extends TurnHandler implements EndTurnHandle
     private final Logger logger;
 
     @Inject
-    public MonopolyEndTurnHandler(@Named("MonopolyEndTurnHandlerLogger") Logger logger,
-                                  final GameStatusDao gameStatusDao,
-                                  final AlexaTurnHandler alexaTurnHandler) {
+    public MonopolyEndPlayerGameStatus(@Named("MonopolyEndTurnHandlerLogger") Logger logger,
+                                       final GameStatusDao gameStatusDao,
+                                       final AlexaTurnHandler alexaTurnHandler) {
         this.gameStatusDao = gameStatusDao;
         this.alexaTurnHandler = alexaTurnHandler;
         this.logger = logger;
