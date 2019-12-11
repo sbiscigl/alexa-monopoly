@@ -75,7 +75,7 @@ public class MonopolyStartHandler implements OnStartHandler {
     public Optional<Response> handle(HandlerInput handlerInput) {
         startGame(handlerInput.getRequestEnvelope().getSession().getUser().getUserId());
         return handlerInput.getResponseBuilder()
-                .withSpeech("Welcome to monopoly. Created a Game. Please take to first turn")
+                .withSpeech("Welcome to monopoly. I've created a game. Please take your first turn")
                 .withShouldEndSession(false)
                 .build();
     }
