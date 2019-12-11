@@ -43,6 +43,7 @@ public class MonopolyPropertyPurchaseHandler extends PropertyActions implements 
         final GameStatus gameStatus = this.gameStatusDao.getGameStatusForUserId(userId);
         final Player player = getPlayerOnTurn(gameStatus);
         final PropertyPurchaseReturn propertyPurchaseReturn = buyProperty(player, gameStatus);
+        this.gameStatusDao.updateGameStatusForUserId(gameStatus, userId);
         return handlerInput.getResponseBuilder()
                 .withSpeech(propertyPurchaseReturn.getMessage())
                 .build();
