@@ -63,7 +63,7 @@ abstract public class PropertyActions extends PlayerGameStatus {
             OwnerInfo propertyOwnerInfo = new OwnerInfo(player.getPieceType(), 0 ,0);
             property.getPropertyMap().put(spaceInfo, propertyOwnerInfo);
             return PropertyPurchaseReturn.builder()
-                    .message("Purchased " + spaceName + " your current balance is " + player.getMoney())
+                    .message("Purchased " + spaceName + " current balance is " + player.getMoney())
                     .build();
         }
     }

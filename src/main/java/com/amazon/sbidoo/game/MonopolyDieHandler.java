@@ -25,7 +25,6 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
     public static final String DIE_ROLL_INTENT = "DiceRollIntent";
     public static final String DIE_ONE = "DieOne";
     public static final String DIE_TWO = "DieTwo";
-    public static final String ROLL_STATUS_FORMAT = "You are currently on %s and %s";
 
     private final Logger logger;
     private final ChanceDao chanceDao;
@@ -85,12 +84,7 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
             final String chargedStatement = chargePlayerIfSpaceIsOwned(playerOnTurn, gameStatusForUserId);
             this.gameStatusDao.updateGameStatusForUserId(gameStatusForUserId, userId);
             return handlerInput.getResponseBuilder()
-                    .withSpeech(String.format(ROLL_STATUS_FORMAT,
-                            gameStatusForUserId.getBoard()
-                                    .getSpaceMap()
-                                    .get(playerOnTurn.getPositionFromStart())
-                                    .getSpaceName(),
-                            chargedStatement))
+                    .withSpeech(buildSpeechString(gameStatusForUserId, playerOnTurn, chargedStatement, handleDiceRoll))
                     .withShouldEndSession(false)
                     .build();
         } catch (Exception e) {
@@ -99,5 +93,24 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
                     .withShouldEndSession(false)
                     .build();
         }
+    }
+
+    private String buildSpeechString(GameStatus gameStatusForUserId,
+                                     Player playerOnTurn,
+                                     String chargedStatement,
+                                     String handleDiceRoll) {
+        final StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.format("You are currently on %s.",
+                gameStatusForUserId.getBoard()
+                        .getSpaceMap()
+                        .get(playerOnTurn.getPositionFromStart())
+                        .getSpaceName()));
+        if (!chargedStatement.isEmpty()) {
+            stringBuilder.append("And ").append(chargedStatement).append(".");
+        }
+        if (!handleDiceRoll.isEmpty()) {
+            stringBuilder.append("And ").append(handleDiceRoll).append(".");
+        }
+        return stringBuilder.toString();
     }
 }

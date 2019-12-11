@@ -70,6 +70,7 @@ public class MonopolyAlexaPlayerGameStatus extends PropertyActions implements Al
                         .build())
                         .getMessage())
                 .chargedStatement(chargedStatement)
+                .chanceResult(chanceResult)
                 .build();
     }
 }

@@ -2,10 +2,8 @@ package com.amazon.sbidoo.inject;
 
 import com.amazon.sbidoo.alexa.AlexaTurnHandler;
 import com.amazon.sbidoo.alexa.MonopolyAlexaPlayerGameStatus;
-import com.amazon.sbidoo.chance.ChanceCardBuilder;
 import com.amazon.sbidoo.chance.ChanceDao;
 import com.amazon.sbidoo.chance.MonopolyChanceDao;
-import com.amazon.sbidoo.community.CommunityChestCardBuilder;
 import com.amazon.sbidoo.community.CommunityChestDao;
 import com.amazon.sbidoo.community.MonopolyCommunityChestDao;
 import com.amazon.sbidoo.game.DieRollHandler;
@@ -15,7 +13,7 @@ import com.amazon.sbidoo.game.HotelPurchaseHandler;
 import com.amazon.sbidoo.game.HousePurchaseHandler;
 import com.amazon.sbidoo.game.MonopolyDieHandler;
 import com.amazon.sbidoo.game.MonopolyEndHandler;
-import com.amazon.sbidoo.game.MonopolyEndPlayerGameStatus;
+import com.amazon.sbidoo.game.MonopolyEndTurnHandler;
 import com.amazon.sbidoo.game.MonopolyHotelPurchaseHandler;
 import com.amazon.sbidoo.game.MonopolyHousePurchaseHandler;
 import com.amazon.sbidoo.game.MonopolyPropertyPurchaseHandler;
@@ -35,8 +33,6 @@ import com.google.inject.name.Names;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
-
 public class MonopolyModule extends AbstractModule {
     @Override
     protected void configure() {
@@ -55,7 +51,7 @@ public class MonopolyModule extends AbstractModule {
         bind(DieRollHandler.class)
                 .to(MonopolyDieHandler.class);
         bind(EndTurnHandler.class)
-                .to(MonopolyEndPlayerGameStatus.class);
+                .to(MonopolyEndTurnHandler.class);
         bind(AlexaTurnHandler.class)
                 .to(MonopolyAlexaPlayerGameStatus.class);
         bind(PropertyPurchaseHandler.class)
@@ -78,7 +74,7 @@ public class MonopolyModule extends AbstractModule {
                 .toInstance(LogManager.getLogger(MonopolyDieHandler.class));
         bind(Logger.class)
                 .annotatedWith(Names.named("MonopolyEndTurnHandlerLogger"))
-                .toInstance(LogManager.getLogger(MonopolyEndPlayerGameStatus.class));
+                .toInstance(LogManager.getLogger(MonopolyEndTurnHandler.class));
         bind(Logger.class)
                 .annotatedWith(Names.named("MonopolyAlexaTurnHandlerLogger"))
                 .toInstance(LogManager.getLogger(MonopolyAlexaPlayerGameStatus.class));
