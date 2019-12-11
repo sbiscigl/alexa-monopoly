@@ -5,6 +5,7 @@ import com.amazon.sbidoo.alexa.MonopolyAlexaPlayerGameStatus;
 import com.amazon.sbidoo.game.DieRollHandler;
 import com.amazon.sbidoo.game.EndTurnHandler;
 import com.amazon.sbidoo.game.FallbackHandler;
+import com.amazon.sbidoo.game.HotelPurchaseHandler;
 import com.amazon.sbidoo.game.HousePurchaseHandler;
 import com.amazon.sbidoo.game.MonopolyDieHandler;
 import com.amazon.sbidoo.game.MonopolyEndHandler;
@@ -47,7 +48,7 @@ public class MonopolyModule extends AbstractModule {
                 .to(MonopolyPropertyPurchaseHandler.class);
         bind(HousePurchaseHandler.class)
                 .to(MonopolyHousePurchaseHandler.class);
-        bind(MonopolyHotelPurchaseHandler.class)
+        bind(HotelPurchaseHandler.class)
                 .to(MonopolyHotelPurchaseHandler.class);
         bind(FallbackHandler.class);
 
