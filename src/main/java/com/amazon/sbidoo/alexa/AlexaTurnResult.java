@@ -9,4 +9,5 @@ public class AlexaTurnResult {
     private final int dieOne;
     private final int dieTwo;
     private final String endPositionName;
+    private final String purchaseMessage;
 }

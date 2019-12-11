@@ -1,6 +1,7 @@
 package com.amazon.sbidoo.alexa;
 
-import com.amazon.sbidoo.game.PlayerGameStatus;
+import com.amazon.sbidoo.game.PropertyActions;
+import com.amazon.sbidoo.game.property.PropertyPurchaseReturn;
 import com.amazon.sbidoo.game.status.GameStatus;
 import com.amazon.sbidoo.game.status.GameStatusDao;
 import com.amazon.sbidoo.game.status.Player;
@@ -9,12 +10,14 @@ import com.google.inject.name.Named;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.logging.log4j.Logger;
 
-public class MonopolyAlexaPlayerGameStatus extends PlayerGameStatus implements AlexaTurnHandler {
+import java.util.Optional;
+
+public class MonopolyAlexaPlayerGameStatus extends PropertyActions implements AlexaTurnHandler {
 
     private final Logger logger;
 
     @Inject
-    public MonopolyAlexaPlayerGameStatus(@Named("MonopolyAlexaTurnHandlerLogger")Logger logger,
+    public MonopolyAlexaPlayerGameStatus(@Named("MonopolyAlexaTurnHandlerLogger") Logger logger,
                                          final GameStatusDao gameStatusDao) {
         this.gameStatusDao = gameStatusDao;
         this.logger = logger;
@@ -25,10 +28,13 @@ public class MonopolyAlexaPlayerGameStatus extends PlayerGameStatus implements A
         final int dieOne = RandomUtils.nextInt(1, 7);
         final int dieTwo = RandomUtils.nextInt(1, 7);
         final Player playerOnTurn = getPlayerOnTurn(gameStatus);
-        if (playerOnTurn == null) {
-            logger.info("no player on turn found");
-        }
         playerOnTurn.updatePositionFromStart(dieOne, dieTwo);
+        Optional<PropertyPurchaseReturn> propertyPurchaseReturn;
+        if (playerOnTurn.getMoney() >= gameStatus.getBoard().getSpaceMap().get(playerOnTurn.getPositionFromStart()).getPrice()) {
+            propertyPurchaseReturn = Optional.of(buyProperty(playerOnTurn, gameStatus));
+        } else {
+            propertyPurchaseReturn = Optional.empty();
+        }
         endTurn(gameStatus);
         return AlexaTurnResult.builder()
                 .dieOne(dieOne)
@@ -37,6 +43,10 @@ public class MonopolyAlexaPlayerGameStatus extends PlayerGameStatus implements A
                         .getSpaceMap()
                         .get(playerOnTurn.getPositionFromStart())
                         .getSpaceName())
+                .purchaseMessage(propertyPurchaseReturn.orElse(PropertyPurchaseReturn.builder()
+                        .message("could Not buy property")
+                        .build())
+                        .getMessage())
                 .build();
     }
 }
