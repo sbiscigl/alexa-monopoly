@@ -8,7 +8,7 @@ import com.google.inject.name.Named;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.List;
-import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 
 public class MonopolyChanceDao implements ChanceDao {
     private final List<Card> chanceCards;
@@ -20,8 +20,8 @@ public class MonopolyChanceDao implements ChanceDao {
 
 
     @Override
-    public BiConsumer<Player, Banker> getActionFromCard(Card card) {
+    public BiFunction<Player, Banker, String> getActionFromCard() {
         final int randomCardIndex = RandomUtils.nextInt(0, chanceCards.size());
-        return this.chanceCards.get(randomCardIndex).getPlayerConsumer();
+        return this.chanceCards.get(randomCardIndex).getCardApplier();
     }
 }

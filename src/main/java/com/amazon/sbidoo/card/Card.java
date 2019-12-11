@@ -5,11 +5,11 @@ import com.amazon.sbidoo.game.status.Player;
 import lombok.Builder;
 import lombok.Value;
 
-import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 
 @Builder
 @Value
 public class Card {
     String message;
-    BiConsumer<Player, Banker> playerConsumer;
+    BiFunction<Player, Banker, String> cardApplier;
 }

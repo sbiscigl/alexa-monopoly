@@ -8,20 +8,20 @@ import com.google.inject.name.Named;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.List;
-import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 
-public class MonpolyCommunityChestDao implements CommunityChestDao {
+public class MonopolyCommunityChestDao implements CommunityChestDao {
     private final List<Card> communityChestCards;
 
     @Inject
-    public MonpolyCommunityChestDao(@Named("ChanceCards") List<Card> communityChestCards) {
+    public MonopolyCommunityChestDao(@Named("CommunityChestCards") List<Card> communityChestCards) {
         this.communityChestCards = communityChestCards;
     }
 
 
     @Override
-    public BiConsumer<Player, Banker> getActionFromCard(Card card) {
+    public BiFunction<Player, Banker, String> getActionFromCard() {
         final int randomCardIndex = RandomUtils.nextInt(0, communityChestCards.size());
-        return this.communityChestCards.get(randomCardIndex).getPlayerConsumer();
+        return this.communityChestCards.get(randomCardIndex).getCardApplier();
     }
 }

@@ -3,8 +3,6 @@ package com.amazon.sbidoo.game.status;
 import lombok.Builder;
 import lombok.Value;
 
-import java.util.function.Consumer;
-
 @Builder
 @Value
 public class Space {

@@ -4,10 +4,13 @@ import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.model.IntentRequest;
 import com.amazon.ask.model.Response;
 import com.amazon.ask.model.Slot;
+import com.amazon.sbidoo.chance.ChanceDao;
+import com.amazon.sbidoo.community.CommunityChestDao;
 import com.amazon.sbidoo.exception.NoPlayerAvailibleException;
 import com.amazon.sbidoo.game.status.GameStatus;
 import com.amazon.sbidoo.game.status.GameStatusDao;
 import com.amazon.sbidoo.game.status.Player;
+import com.amazon.sbidoo.game.status.Space;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.apache.logging.log4j.Logger;
@@ -25,20 +28,37 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
     public static final String ROLL_STATUS_FORMAT = "You are currently on %s and %s";
 
     private final Logger logger;
+    private final ChanceDao chanceDao;
+    private final CommunityChestDao communityChestDao;
 
     @Inject
     public MonopolyDieHandler(@Named("MonopolyDieHandlerLogger") final Logger logger,
-                              final GameStatusDao gameStatusDao) {
+                              final GameStatusDao gameStatusDao,
+                              final ChanceDao chanceDao,
+                              final CommunityChestDao communityChestDao) {
         this.logger = logger;
+        this.chanceDao = chanceDao;
+        this.communityChestDao = communityChestDao;
         this.gameStatusDao = gameStatusDao;
     }
 
     @Override
-    public void handleDiceRoll(final Player player,
-                               final int dieOne,
-                               final int dieTwo) {
+    public String handleDiceRoll(final GameStatus gameStatus,
+                                 final Player player,
+                                 final int dieOne,
+                                 final int dieTwo) {
         if (player != null) {
             player.updatePositionFromStart(dieOne, dieTwo);
+            final Space.SpaceType spaceType = gameStatus.getBoard()
+                    .getSpaceMap()
+                    .get(player.getPositionFromStart())
+                    .getSpaceType();
+            if (spaceType.equals(Space.SpaceType.Chance)) {
+                return chanceDao.getActionFromCard().apply(player, gameStatus.getBanker());
+            } else if (spaceType.equals(Space.SpaceType.CommunityChest)) {
+                return communityChestDao.getActionFromCard().apply(player, gameStatus.getBanker());
+            }
+            return "";
         } else {
             throw new NoPlayerAvailibleException("No active players exist");
         }
@@ -61,7 +81,7 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
             final String userId = handlerInput.getRequestEnvelope().getSession().getUser().getUserId();
             final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
             final Player playerOnTurn = getPlayerOnTurn(gameStatusForUserId);
-            handleDiceRoll(playerOnTurn, dieOne, dieTwo);
+            final String handleDiceRoll = handleDiceRoll(gameStatusForUserId, playerOnTurn, dieOne, dieTwo);
             final String chargedStatement = chargePlayerIfSpaceIsOwned(playerOnTurn, gameStatusForUserId);
             this.gameStatusDao.updateGameStatusForUserId(gameStatusForUserId, userId);
             return handlerInput.getResponseBuilder()

@@ -3,19 +3,19 @@ package com.amazon.sbidoo.game;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.model.Response;
 import com.amazon.sbidoo.Monopoly;
+import com.amazon.sbidoo.game.status.Board;
 import com.amazon.sbidoo.game.status.GameStatus;
 import com.amazon.sbidoo.game.status.GameStatusDao;
 import com.amazon.sbidoo.game.status.OwnerInfo;
 import com.amazon.sbidoo.game.status.Player;
 import com.amazon.sbidoo.game.status.Property;
-import com.amazon.sbidoo.game.status.Board;
 import com.amazon.sbidoo.game.status.Space;
 import com.amazon.sbidoo.game.status.SpaceInfo;
 import com.google.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.util.Map;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 

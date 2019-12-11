@@ -2,6 +2,12 @@ package com.amazon.sbidoo.inject;
 
 import com.amazon.sbidoo.alexa.AlexaTurnHandler;
 import com.amazon.sbidoo.alexa.MonopolyAlexaPlayerGameStatus;
+import com.amazon.sbidoo.chance.ChanceCardBuilder;
+import com.amazon.sbidoo.chance.ChanceDao;
+import com.amazon.sbidoo.chance.MonopolyChanceDao;
+import com.amazon.sbidoo.community.CommunityChestCardBuilder;
+import com.amazon.sbidoo.community.CommunityChestDao;
+import com.amazon.sbidoo.community.MonopolyCommunityChestDao;
 import com.amazon.sbidoo.game.DieRollHandler;
 import com.amazon.sbidoo.game.EndTurnHandler;
 import com.amazon.sbidoo.game.FallbackHandler;
@@ -28,6 +34,8 @@ import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 public class MonopolyModule extends AbstractModule {
     @Override
@@ -56,6 +64,16 @@ public class MonopolyModule extends AbstractModule {
                 .to(MonopolyHousePurchaseHandler.class);
         bind(HotelPurchaseHandler.class)
                 .to(MonopolyHotelPurchaseHandler.class);
+        bind(ChanceDao.class)
+                .to(MonopolyChanceDao.class);
+        bind(CommunityChestDao.class)
+                .to(MonopolyCommunityChestDao.class);
+        bind(List.class)
+                .annotatedWith(Names.named("ChanceCards"))
+                .toInstance(ChanceCardBuilder.buildChanceCards());
+        bind(List.class)
+                .annotatedWith(Names.named("CommunityChestCards"))
+                .toInstance(CommunityChestCardBuilder.buildCommunityChanceCards());
         bind(FallbackHandler.class);
 
         bind(Logger.class)

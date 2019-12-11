@@ -1,6 +1,7 @@
 package com.amazon.sbidoo.game.status;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.List;
 

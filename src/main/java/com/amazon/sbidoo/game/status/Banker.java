@@ -2,7 +2,6 @@ package com.amazon.sbidoo.game.status;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.Value;
 
 @Builder
 @Data
