@@ -85,7 +85,7 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
             final String chargedStatement = chargePlayerIfSpaceIsOwned(playerOnTurn, gameStatusForUserId);
             int after = playerOnTurn.getPositionFromStart();
             StringBuilder passedGoStringBuilder = new StringBuilder();
-            if (after - before > 12) {
+            if (before > after) {
                 passedGoStringBuilder.append("You passed go. You collected 200 dollars.");
             }
             this.gameStatusDao.updateGameStatusForUserId(gameStatusForUserId, userId);

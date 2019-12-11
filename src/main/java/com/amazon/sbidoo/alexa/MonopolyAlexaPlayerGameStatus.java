@@ -60,7 +60,7 @@ public class MonopolyAlexaPlayerGameStatus extends PropertyActions implements Al
         }
         int after = playerOnTurn.getPositionFromStart();
         StringBuilder passedGoStringBuilder = new StringBuilder();
-        if (after - before > 12) {
+        if (before > after) {
             passedGoStringBuilder.append("You passed go. You collected 200 dollars.");
         }
         endTurn(gameStatus);
