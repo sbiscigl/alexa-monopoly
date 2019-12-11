@@ -35,6 +35,7 @@ public class MonopolyAlexaPlayerGameStatus extends PropertyActions implements Al
         } else {
             propertyPurchaseReturn = Optional.empty();
         }
+        final String chargedStatement = chargePlayerIfSpaceIsOwned(playerOnTurn, gameStatus);
         endTurn(gameStatus);
         return AlexaTurnResult.builder()
                 .dieOne(dieOne)
@@ -47,6 +48,7 @@ public class MonopolyAlexaPlayerGameStatus extends PropertyActions implements Al
                         .message("could Not buy property")
                         .build())
                         .getMessage())
+                .chargedStatement(chargedStatement)
                 .build();
     }
 }

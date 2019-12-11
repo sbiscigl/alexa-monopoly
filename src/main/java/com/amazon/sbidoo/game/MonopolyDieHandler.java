@@ -22,7 +22,7 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
     public static final String DIE_ROLL_INTENT = "DiceRollIntent";
     public static final String DIE_ONE = "DieOne";
     public static final String DIE_TWO = "DieTwo";
-    public static final String ROLL_STATUS_FORMAT = "You are currently on %s";
+    public static final String ROLL_STATUS_FORMAT = "You are currently on %s and %s";
 
     private final Logger logger;
 
@@ -62,13 +62,15 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
             final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
             final Player playerOnTurn = getPlayerOnTurn(gameStatusForUserId);
             handleDiceRoll(playerOnTurn, dieOne, dieTwo);
+            final String chargedStatement = chargePlayerIfSpaceIsOwned(playerOnTurn, gameStatusForUserId);
             this.gameStatusDao.updateGameStatusForUserId(gameStatusForUserId, userId);
             return handlerInput.getResponseBuilder()
                     .withSpeech(String.format(ROLL_STATUS_FORMAT,
                             gameStatusForUserId.getBoard()
                                     .getSpaceMap()
                                     .get(playerOnTurn.getPositionFromStart())
-                                    .getSpaceName()))
+                                    .getSpaceName(),
+                            chargedStatement))
                     .withShouldEndSession(false)
                     .build();
         } catch (Exception e) {
