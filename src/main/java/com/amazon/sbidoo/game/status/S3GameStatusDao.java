@@ -51,7 +51,7 @@ public class S3GameStatusDao implements GameStatusDao {
         final String serializedGameStatus = gson.toJson(gameStatus);
         logger.info("writing object: " + serializedGameStatus);
         amazonS3.putObject(BUCKET_NAME,
-                String.join("-", userId, String.valueOf(gameStatus.getVersion())),
+                String.join("-", userId, String.valueOf(gameStatus.getVersion() + 1)),
                 serializedGameStatus);
     }
 

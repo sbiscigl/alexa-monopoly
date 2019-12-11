@@ -5,10 +5,12 @@ import com.amazon.ask.model.Response;
 import com.amazon.sbidoo.Monopoly;
 import com.amazon.sbidoo.game.status.GameStatus;
 import com.amazon.sbidoo.game.status.GameStatusDao;
+import com.amazon.sbidoo.game.status.OwnerInfo;
 import com.amazon.sbidoo.game.status.Player;
 import com.amazon.sbidoo.game.status.Property;
 import com.amazon.sbidoo.game.status.Board;
 import com.amazon.sbidoo.game.status.Space;
+import com.amazon.sbidoo.game.status.SpaceInfo;
 import com.google.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -74,7 +76,7 @@ public class MonopolyGameHandler implements GameHandler {
         String spaceName = board.getSpaceMap().get(propertyIndex).getSpaceName();
 
         //This is the key to the propertyMap
-        Property.SpaceInfo spaceInfo  = property.new SpaceInfo(spaceType, spaceCategory, spaceName);
+        SpaceInfo spaceInfo  = new SpaceInfo(spaceType, spaceCategory, spaceName);
 
         //Check if the spaceInfo, ownerInfo entry is already in the map, if not allow the player to proceed with purchase
         if(property.getPropertyMap().containsKey(spaceInfo)){
@@ -88,10 +90,7 @@ public class MonopolyGameHandler implements GameHandler {
         }
         else {
             playerOnTurn.updateMoney(spacePrice);
-            Property.OwnerInfo propertyOwnerInfo = property.getPropertyMap().get(spaceInfo);
-            propertyOwnerInfo.setOwner(playerOnTurn.getPieceType());
-            propertyOwnerInfo.setHouses(0);
-            propertyOwnerInfo.setHotels(0);
+            OwnerInfo propertyOwnerInfo = new OwnerInfo(playerOnTurn.getPieceType(), 0 ,0);
         }
         return;
     }

@@ -3,9 +3,11 @@ package com.amazon.sbidoo.game;
 import com.amazon.sbidoo.game.property.PropertyPurchaseReturn;
 import com.amazon.sbidoo.game.status.Board;
 import com.amazon.sbidoo.game.status.GameStatus;
+import com.amazon.sbidoo.game.status.OwnerInfo;
 import com.amazon.sbidoo.game.status.Player;
 import com.amazon.sbidoo.game.status.Property;
 import com.amazon.sbidoo.game.status.Space;
+import com.amazon.sbidoo.game.status.SpaceInfo;
 
 abstract public class PropertyActions extends PlayerGameStatus {
 
@@ -38,7 +40,7 @@ abstract public class PropertyActions extends PlayerGameStatus {
         String spaceName = board.getSpaceMap().get(propertyIndex).getSpaceName();
 
         //This is the key to the propertyMap
-        Property.SpaceInfo spaceInfo = property.new SpaceInfo(spaceType, spaceCategory, spaceName);
+        SpaceInfo spaceInfo = new SpaceInfo(spaceType, spaceCategory, spaceName);
 
         //Check if the spaceInfo, ownerInfo entry is already in the map, if not allow the player to proceed with purchase
         if (property.getPropertyMap().containsKey(spaceInfo)) {
@@ -52,7 +54,7 @@ abstract public class PropertyActions extends PlayerGameStatus {
                     .build();
         } else {
             player.updateMoney(spacePrice);
-            Property.OwnerInfo propertyOwnerInfo = property. new OwnerInfo(player.getPieceType(), 0 ,0);
+            OwnerInfo propertyOwnerInfo = new OwnerInfo(player.getPieceType(), 0 ,0);
             property.getPropertyMap().put(spaceInfo, propertyOwnerInfo);
             return PropertyPurchaseReturn.builder()
                     .message("You purchased " + spaceName + " your current balance is " + player.getMoney())
