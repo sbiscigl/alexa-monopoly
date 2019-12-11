@@ -32,7 +32,7 @@ public class Player {
 
     public void updatePositionFromStart(int dieOne, int dieTwo, Player player){
 
-        trackPreviousRolls(dieOne, dieTwo);
+        // trackPreviousRolls(dieOne, dieTwo);
 
         //I will uncomment this method when we decide we want to implement doubles rules
         //checkForDoubles();

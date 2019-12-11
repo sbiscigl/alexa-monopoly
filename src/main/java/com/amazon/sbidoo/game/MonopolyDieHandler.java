@@ -53,9 +53,9 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
                     .get(player.getPositionFromStart())
                     .getSpaceType();
             if (spaceType.equals(Space.SpaceType.Chance)) {
-                return chanceDao.getActionFromCard().apply(player, gameStatus.getBanker());
+                return "You landed on a chance space. " + chanceDao.getActionFromCard().apply(player, gameStatus.getBanker());
             } else if (spaceType.equals(Space.SpaceType.CommunityChest)) {
-                return communityChestDao.getActionFromCard().apply(player, gameStatus.getBanker());
+                return "You landed on a community chest space. " + communityChestDao.getActionFromCard().apply(player, gameStatus.getBanker());
             }
             return "";
         } else {
@@ -107,20 +107,20 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
                                      String handleDiceRoll,
                                      String passerGoString) {
         final StringBuilder stringBuilder = new StringBuilder();
+        if (!handleDiceRoll.isEmpty()) {
+            stringBuilder.append(handleDiceRoll).append(". ");
+        }
+        if (!chargedStatement.isEmpty()) {
+            stringBuilder.append(chargedStatement).append(". ");
+        }
+        if (!passerGoString.isEmpty()) {
+            stringBuilder.append(passerGoString).append(". ");
+        }
         stringBuilder.append(String.format("You are currently on %s. ",
                 gameStatusForUserId.getBoard()
                         .getSpaceMap()
                         .get(playerOnTurn.getPositionFromStart())
                         .getSpaceName()));
-        if (!chargedStatement.isEmpty()) {
-            stringBuilder.append(chargedStatement).append(". ");
-        }
-        if (!handleDiceRoll.isEmpty()) {
-            stringBuilder.append(handleDiceRoll).append(". ");
-        }
-        if (!passerGoString.isEmpty()) {
-            stringBuilder.append(passerGoString).append(". ");
-        }
         return stringBuilder.toString();
     }
 }
