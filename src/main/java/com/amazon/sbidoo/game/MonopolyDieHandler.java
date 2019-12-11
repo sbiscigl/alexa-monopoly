@@ -47,7 +47,7 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
                                  final int dieOne,
                                  final int dieTwo) {
         if (player != null) {
-            player.updatePositionFromStart(dieOne, dieTwo);
+            player.updatePositionFromStart(dieOne, dieTwo, player);
             final Space.SpaceType spaceType = gameStatus.getBoard()
                     .getSpaceMap()
                     .get(player.getPositionFromStart())

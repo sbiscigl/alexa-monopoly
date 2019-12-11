@@ -30,7 +30,7 @@ public class Player {
 
 
 
-    public void updatePositionFromStart(int dieOne, int dieTwo){
+    public void updatePositionFromStart(int dieOne, int dieTwo, Player player){
 
         trackPreviousRolls(dieOne, dieTwo);
 
@@ -45,6 +45,8 @@ public class Player {
         //this case handles when you go back to the beginning of the board
         if(newPositionBeforeNormalization >= numOfSpacesOnBoard) {
             newPositionFromStart = newPositionBeforeNormalization - numOfSpacesOnBoard;
+            //collect 200 dollars for passing GO
+            player.setMoney(player.getMoney() + 200);
         }
         else {
             newPositionFromStart = newPositionBeforeNormalization;
