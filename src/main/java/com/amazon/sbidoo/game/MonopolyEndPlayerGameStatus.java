@@ -17,7 +17,7 @@ import static com.amazon.ask.request.Predicates.intentName;
 public class MonopolyEndPlayerGameStatus extends PlayerGameStatus implements EndTurnHandler{
 
     public static final String END_TURN_INTENT = "EndTurnIntent";
-    public static final String ALEXA_RESPONSE_FORMAT = "I rolled a %s and a %s, and am currently at %s";
+    public static final String ALEXA_RESPONSE_FORMAT = "I rolled a %s and a %s, and am currently at %s and %s";
 
     private final AlexaTurnHandler alexaTurnHandler;
     private final Logger logger;
@@ -58,7 +58,8 @@ public class MonopolyEndPlayerGameStatus extends PlayerGameStatus implements End
                 .withSpeech(String.format(ALEXA_RESPONSE_FORMAT,
                         alexaTurnResult.getDieOne(),
                         alexaTurnResult.getDieTwo(),
-                        alexaTurnResult.getEndPositionName()))
+                        alexaTurnResult.getEndPositionName(),
+                        alexaTurnResult.getPurchaseMessage()))
                 .withShouldEndSession(false)
                 .build();
     }
