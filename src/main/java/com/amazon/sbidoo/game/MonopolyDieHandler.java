@@ -17,7 +17,7 @@ import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.intentName;
 
-public class MonopolyDieHandler extends PropertyActions implements DieRollHandler {
+public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandler {
 
     public static final String DIE_ROLL_INTENT = "DiceRollIntent";
     public static final String DIE_ONE = "DieOne";

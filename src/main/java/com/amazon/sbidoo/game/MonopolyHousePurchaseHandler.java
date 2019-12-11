@@ -16,7 +16,7 @@ import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.intentName;
 
-public class MonopolyHousePurchaseHandler extends PlayerGameStatus implements HousePurchaseHandler {
+public class MonopolyHousePurchaseHandler extends PropertyActions implements HousePurchaseHandler {
 
     public static final String BUY_HOUSES_INTENT = "BuyHousesIntent";
     public static final String NUMBER_OF_HOUSES = "NumberOfHouses";
@@ -31,9 +31,9 @@ public class MonopolyHousePurchaseHandler extends PlayerGameStatus implements Ho
 
     @Override
     public void purchaseHouse(final GameStatus gameStatus,
-                                    final Player player,
-                                    final int numberOfHouses) {
-        return;
+                              final Player player,
+                              final int numberOfHouses) {
+        buyHouses(numberOfHouses, player, gameStatus);
     }
 
     @Override

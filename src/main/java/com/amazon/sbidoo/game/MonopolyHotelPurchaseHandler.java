@@ -16,7 +16,7 @@ import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.intentName;
 
-public class MonopolyHotelPurchaseHandler extends PlayerGameStatus implements HotelPurchaseHandler {
+public class MonopolyHotelPurchaseHandler extends PropertyActions implements HotelPurchaseHandler {
 
     public static final String BUY_HOTEL_INTENT = "BuyHotelIntent";
     private final Logger logger;
@@ -32,7 +32,7 @@ public class MonopolyHotelPurchaseHandler extends PlayerGameStatus implements Ho
     public void purchaseHotel(final GameStatus gameStatus,
                                     final Player player,
                                     final int numberOfHotels) {
-        return;
+        buyHouses(numberOfHotels * 4, player, gameStatus);
     }
 
     @Override
