@@ -80,7 +80,10 @@ abstract public class PlayerGameStatus {
             //Alexa should say this
             sb.append("This property is owned by ").append(ownerPieceType).append(". ");
             int chargePrice = calculateChargePrice(spacePrice, houses, hotels, propertyMap, spaceType, spaceCategory, ownerPieceType);
-            if(playerMoney >= chargePrice && playerOnTurn.getPieceType() != propertyOwnerInfo.getOwner()) {
+            if (playerOnTurn.getPieceType() == propertyOwnerInfo.getOwner()) {
+                sb.append("Player owns property, no charge";
+                return sb.toString();
+            } else if(playerMoney >= chargePrice) {
                 //Alexa should say this
                 sb.append("Charging ").append(chargePrice).append(" dollars. ");
                 playerOnTurn.updateMoney(chargePrice);
@@ -88,8 +91,7 @@ abstract public class PlayerGameStatus {
                 //Alexa should say this
                 sb.append("New balance is ").append(playerMoney).append(" dollars. ");
                 return sb.toString();
-            }
-            else {
+            } else {
                 //Alexa should say this
                 sb.append("Not enough money to pay. " + ownerPieceType + "wins! ");
                 return sb.toString();
