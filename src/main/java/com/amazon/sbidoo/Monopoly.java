@@ -6,6 +6,8 @@ import com.amazon.ask.Skills;
 import com.amazon.sbidoo.game.DieRollHandler;
 import com.amazon.sbidoo.game.EndTurnHandler;
 import com.amazon.sbidoo.game.FallbackHandler;
+import com.amazon.sbidoo.game.HotelPurchaseHandler;
+import com.amazon.sbidoo.game.HousePurchaseHandler;
 import com.amazon.sbidoo.game.OnEndHandler;
 import com.amazon.sbidoo.game.OnStartHandler;
 import com.amazon.sbidoo.inject.MonopolyModule;
@@ -26,7 +28,9 @@ public class Monopoly extends SkillStreamHandler {
                         injector.getInstance(OnEndHandler.class),
                         injector.getInstance(DieRollHandler.class),
                         injector.getInstance(EndTurnHandler.class),
-                        injector.getInstance(FallbackHandler.class))
+                        injector.getInstance(FallbackHandler.class),
+                        injector.getInstance(HousePurchaseHandler.class),
+                        injector.getInstance(HotelPurchaseHandler.class))
                 .withSkillId(System.getenv("SKILL_ID"))
                 .build();
     }

@@ -8,6 +8,8 @@ import com.amazon.sbidoo.game.FallbackHandler;
 import com.amazon.sbidoo.game.MonopolyDieHandler;
 import com.amazon.sbidoo.game.MonopolyEndHandler;
 import com.amazon.sbidoo.game.MonopolyEndPlayerGameStatus;
+import com.amazon.sbidoo.game.MonopolyHotelPurchaseHandler;
+import com.amazon.sbidoo.game.MonopolyHousePurchaseHandler;
 import com.amazon.sbidoo.game.MonopolyStartHandler;
 import com.amazon.sbidoo.game.OnEndHandler;
 import com.amazon.sbidoo.game.OnStartHandler;
@@ -52,5 +54,11 @@ public class MonopolyModule extends AbstractModule {
         bind(Logger.class)
                 .annotatedWith(Names.named("MonopolyAlexaTurnHandlerLogger"))
                 .toInstance(LogManager.getLogger(MonopolyAlexaPlayerGameStatus.class));
+        bind(Logger.class)
+                .annotatedWith(Names.named("MonopolyHotelPurchaseHandlerLogger"))
+                .toInstance(LogManager.getLogger(MonopolyHotelPurchaseHandler.class));
+        bind(Logger.class)
+                .annotatedWith(Names.named("MonopolyHousePurchaseHandlerLogger"))
+                .toInstance(LogManager.getLogger(MonopolyHousePurchaseHandler.class));
     }
 }
