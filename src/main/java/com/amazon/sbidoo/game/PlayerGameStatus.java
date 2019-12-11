@@ -56,34 +56,42 @@ abstract public class PlayerGameStatus {
         Space.SpaceCategory spaceCategory = board.getSpaceMap().get(propertyIndex).getSpaceCategory();
         String spaceName = board.getSpaceMap().get(propertyIndex).getSpaceName();
 
+        int spacePrice = space.getPrice();
+        int playerMoney = playerOnTurn.getMoney();
+        StringBuilder sb = new StringBuilder();
+        if(spaceType == Space.SpaceType.IncomeTax || spaceType == Space.SpaceType.LuxuryTax) {
+            sb.append("This space is taxed " + spacePrice + " dollars.");
+            playerMoney -= spacePrice;
+            playerOnTurn.updateMoney(playerMoney);
+            sb.append("New balance is " + playerMoney + " dollars.");
+            return sb.toString();
+        }
+
         //This is the key to the propertyMap
         SpaceInfo spaceInfo  = new SpaceInfo(spaceType, spaceCategory, spaceName);
         Map<SpaceInfo, OwnerInfo> propertyMap = property.getPropertyMap();
 
-        StringBuilder sb = new StringBuilder();
         if(propertyMap.containsKey(spaceInfo)){
             OwnerInfo propertyOwnerInfo = property.getPropertyMap().get(spaceInfo);
             Player.PieceType ownerPieceType = propertyOwnerInfo.getOwner();
-            int spacePrice = space.getPrice();
             int houses = propertyOwnerInfo.getHouses();
             int hotels = propertyOwnerInfo.getHotels();
 
             //Alexa should say this
             sb.append("This property is owned by " + ownerPieceType + ".");
             int chargePrice = calculateChargePrice(spacePrice, houses, hotels, propertyMap, spaceType, spaceCategory, ownerPieceType);
-            int playerMoney = playerOnTurn.getMoney();
             if(playerMoney >= chargePrice) {
                 //Alexa should say this
-                sb.append("Charging you " + chargePrice + " dollars.");
+                sb.append("Charging " + chargePrice + " dollars.");
                 playerMoney -= chargePrice;
                 playerOnTurn.updateMoney(playerMoney);
                 //Alexa should say this
-                sb.append("Your new balance is " + playerMoney + " dollars.");
+                sb.append("New balance is " + playerMoney + " dollars.");
                 return sb.toString();
             }
             else {
                 //Alexa should say this
-                sb.append("You don't have enough money to pay me, I win!");
+                sb.append("Not enough money to pay. " + ownerPieceType + "wins!");
                 return sb.toString();
             }
         }

@@ -39,6 +39,12 @@ abstract public class PropertyActions extends PlayerGameStatus {
         Space.SpaceCategory spaceCategory = board.getSpaceMap().get(propertyIndex).getSpaceCategory();
         String spaceName = board.getSpaceMap().get(propertyIndex).getSpaceName();
 
+        if(spaceType == Space.SpaceType.IncomeTax || spaceType == Space.SpaceType.LuxuryTax) {
+            return PropertyPurchaseReturn.builder()
+                    .message("Cannot buy this space because it is not a property")
+                    .build();
+        }
+
         //This is the key to the propertyMap
         SpaceInfo spaceInfo = new SpaceInfo(spaceType, spaceCategory, spaceName);
 
@@ -46,18 +52,18 @@ abstract public class PropertyActions extends PlayerGameStatus {
         if (property.getPropertyMap().containsKey(spaceInfo)) {
             Player.PieceType ownerPieceType = property.getPropertyMap().get(spaceInfo).getOwner();
             return PropertyPurchaseReturn.builder()
-                    .message("You cannot buy this property because it is already owned by the " + ownerPieceType)
+                    .message("Cannot buy this property because it is already owned by the " + ownerPieceType)
                     .build();
         } else if (!playerHasEnoughMoneyForPurchase(playerMoney, spacePrice)) {
             return PropertyPurchaseReturn.builder()
-                    .message("You do not have enough money to purchase this property")
+                    .message("Do not have enough money to purchase this property")
                     .build();
         } else {
             player.updateMoney(spacePrice);
             OwnerInfo propertyOwnerInfo = new OwnerInfo(player.getPieceType(), 0 ,0);
             property.getPropertyMap().put(spaceInfo, propertyOwnerInfo);
             return PropertyPurchaseReturn.builder()
-                    .message("You purchased " + spaceName + " your current balance is " + player.getMoney())
+                    .message("Purchased " + spaceName + " your current balance is " + player.getMoney())
                     .build();
         }
     }
