@@ -25,7 +25,6 @@ public class FallbackHandler implements RequestHandler {
                 .or(intentName("AMAZON.YesIntent"))
                 .or(intentName("AMAZON.FallBackIntent"))
                 .or(intentName("AMAZON.NoIntent"))
-                .or(intentName("AMAZON.StopIntent"))
                 .or(requestType(SessionEndedRequest.class)));
     }
 

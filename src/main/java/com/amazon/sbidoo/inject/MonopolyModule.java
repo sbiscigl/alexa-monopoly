@@ -21,6 +21,7 @@ import com.amazon.sbidoo.game.MonopolyStartHandler;
 import com.amazon.sbidoo.game.OnEndHandler;
 import com.amazon.sbidoo.game.OnStartHandler;
 import com.amazon.sbidoo.game.PropertyPurchaseHandler;
+import com.amazon.sbidoo.game.StopHandler;
 import com.amazon.sbidoo.game.status.GameStatusDao;
 import com.amazon.sbidoo.game.status.S3GameStatusDao;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
@@ -65,7 +66,7 @@ public class MonopolyModule extends AbstractModule {
         bind(CommunityChestDao.class)
                 .to(MonopolyCommunityChestDao.class);
         bind(FallbackHandler.class);
-
+        bind(StopHandler.class);
         bind(Logger.class)
                 .annotatedWith(Names.named("S3GameStatusDaoLogger"))
                 .toInstance(LogManager.getLogger(S3GameStatusDao.class));

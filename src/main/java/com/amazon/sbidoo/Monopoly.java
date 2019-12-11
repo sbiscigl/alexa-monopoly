@@ -11,6 +11,7 @@ import com.amazon.sbidoo.game.HousePurchaseHandler;
 import com.amazon.sbidoo.game.OnEndHandler;
 import com.amazon.sbidoo.game.OnStartHandler;
 import com.amazon.sbidoo.game.PropertyPurchaseHandler;
+import com.amazon.sbidoo.game.StopHandler;
 import com.amazon.sbidoo.inject.MonopolyModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -32,7 +33,8 @@ public class Monopoly extends SkillStreamHandler {
                         injector.getInstance(FallbackHandler.class),
                         injector.getInstance(HousePurchaseHandler.class),
                         injector.getInstance(HotelPurchaseHandler.class),
-                        injector.getInstance(PropertyPurchaseHandler.class))
+                        injector.getInstance(PropertyPurchaseHandler.class),
+                        injector.getInstance(StopHandler.class))
                 .withSkillId(System.getenv("SKILL_ID"))
                 .build();
     }
