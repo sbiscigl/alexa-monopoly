@@ -61,7 +61,8 @@ abstract public class PlayerGameStatus {
         StringBuilder sb = new StringBuilder();
         if(spaceType == Space.SpaceType.IncomeTax || spaceType == Space.SpaceType.LuxuryTax) {
             sb.append("This space is taxed ").append(spacePrice).append(" dollars.");
-            playerOnTurn.updateMoney(playerMoney - spacePrice);
+            playerOnTurn.updateMoney(spacePrice);
+            playerMoney = playerOnTurn.getMoney();
             sb.append("New balance is ").append(playerMoney).append(" dollars.");
             return sb.toString();
         }
