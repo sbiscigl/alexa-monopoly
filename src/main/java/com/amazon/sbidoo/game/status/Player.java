@@ -11,7 +11,7 @@ public class Player {
     public enum PieceType {
         Dog,
         Hat,
-        Thimble,
+        Penguin,
         Boot,
         Wheelbarrow,
         Cat,

@@ -43,7 +43,7 @@ public class MonopolyStartHandler implements OnStartHandler {
                                 .wereLastRollsDoubles(ImmutableList.of())
                                 .isOnTurn(true)
                                 .money(1_500)
-                                .pieceType(Player.PieceType.Thimble)
+                                .pieceType(Player.PieceType.Penguin)
                                 .positionFromStart(0)
                                 .build(),
                         Player.builder()
@@ -53,7 +53,7 @@ public class MonopolyStartHandler implements OnStartHandler {
                                 .wereLastRollsDoubles(ImmutableList.of())
                                 .isOnTurn(false)
                                 .money(1_500)
-                                .pieceType(Player.PieceType.Boot)
+                                .pieceType(Player.PieceType.Dog)
                                 .positionFromStart(0)
                                 .build()
                 ))
