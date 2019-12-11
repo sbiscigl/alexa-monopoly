@@ -8,6 +8,5 @@ import java.util.Map;
 @Builder
 @Value
 public class Property {
-
     private final Map<SpaceInfo, OwnerInfo> propertyMap;
 }
