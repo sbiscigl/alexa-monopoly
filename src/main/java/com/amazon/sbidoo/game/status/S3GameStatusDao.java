@@ -48,7 +48,13 @@ public class S3GameStatusDao implements GameStatusDao {
     @Override
     public void updateGameStatusForUserId(final GameStatus gameStatus,
                                           final String userId) {
-        final String serializedGameStatus = gson.toJson(gameStatus);
+        final String serializedGameStatus = gson.toJson(GameStatus.builder()
+                .property(gameStatus.getProperty())
+                .board(gameStatus.getBoard())
+                .banker(gameStatus.getBanker())
+                .players(gameStatus.getPlayers())
+                .version(gameStatus.getVersion() + 1)
+                .build());
         logger.info("writing object: " + serializedGameStatus);
         amazonS3.putObject(BUCKET_NAME,
                 String.join("-", userId, String.valueOf(gameStatus.getVersion() + 1)),
