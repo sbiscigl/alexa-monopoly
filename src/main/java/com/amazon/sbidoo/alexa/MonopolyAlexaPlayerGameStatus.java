@@ -30,12 +30,12 @@ public class MonopolyAlexaPlayerGameStatus extends PropertyActions implements Al
         final Player playerOnTurn = getPlayerOnTurn(gameStatus);
         playerOnTurn.updatePositionFromStart(dieOne, dieTwo);
         Optional<PropertyPurchaseReturn> propertyPurchaseReturn;
-        if (playerOnTurn.getMoney() >= gameStatus.getBoard().getSpaceMap().get(playerOnTurn.getPositionFromStart()).getPrice()) {
+        final String chargedStatement = chargePlayerIfSpaceIsOwned(playerOnTurn, gameStatus);
+        if (playerOnTurn.getMoney() >= gameStatus.getBoard().getSpaceMap().get(playerOnTurn.getPositionFromStart()).getPrice() && chargedStatement.isEmpty()) {
             propertyPurchaseReturn = Optional.of(buyProperty(playerOnTurn, gameStatus));
         } else {
             propertyPurchaseReturn = Optional.empty();
         }
-        final String chargedStatement = chargePlayerIfSpaceIsOwned(playerOnTurn, gameStatus);
         endTurn(gameStatus);
         return AlexaTurnResult.builder()
                 .dieOne(dieOne)
