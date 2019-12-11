@@ -51,24 +51,31 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
 
     @Override
     public Optional<Response> handle(HandlerInput handlerInput) {
-        logger.info("Die roll handler called");
-        IntentRequest request = (IntentRequest) handlerInput.getRequestEnvelope().getRequest();
-        final Map<String, Slot> slots = request.getIntent().getSlots();
-        final int dieOne = Integer.parseInt(slots.get(DIE_ONE).getValue());
-        final int dieTwo = Integer.parseInt(slots.get(DIE_TWO).getValue());
-        logger.info(String.format("slot values were found to be: %d, %d", dieOne, dieTwo));
-        final String userId = handlerInput.getRequestEnvelope().getSession().getUser().getUserId();
-        final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
-        final Player playerOnTurn = getPlayerOnTurn(gameStatusForUserId);
-        handleDiceRoll(playerOnTurn, dieOne, dieTwo);
-        this.gameStatusDao.updateGameStatusForUserId(gameStatusForUserId, userId);
-        return handlerInput.getResponseBuilder()
-                .withSpeech(String.format(ROLL_STATUS_FORMAT,
-                        gameStatusForUserId.getBoard()
-                                .getSpaceMap()
-                                .get(playerOnTurn.getPositionFromStart())
-                                .getSpaceName()))
-                .withShouldEndSession(false)
-                .build();
+        try {
+            logger.info("Die roll handler called");
+            IntentRequest request = (IntentRequest) handlerInput.getRequestEnvelope().getRequest();
+            final Map<String, Slot> slots = request.getIntent().getSlots();
+            final int dieOne = Integer.parseInt(slots.get(DIE_ONE).getValue());
+            final int dieTwo = Integer.parseInt(slots.get(DIE_TWO).getValue());
+            logger.info(String.format("slot values were found to be: %d, %d", dieOne, dieTwo));
+            final String userId = handlerInput.getRequestEnvelope().getSession().getUser().getUserId();
+            final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
+            final Player playerOnTurn = getPlayerOnTurn(gameStatusForUserId);
+            handleDiceRoll(playerOnTurn, dieOne, dieTwo);
+            this.gameStatusDao.updateGameStatusForUserId(gameStatusForUserId, userId);
+            return handlerInput.getResponseBuilder()
+                    .withSpeech(String.format(ROLL_STATUS_FORMAT,
+                            gameStatusForUserId.getBoard()
+                                    .getSpaceMap()
+                                    .get(playerOnTurn.getPositionFromStart())
+                                    .getSpaceName()))
+                    .withShouldEndSession(false)
+                    .build();
+        } catch (Exception e) {
+            return handlerInput.getResponseBuilder()
+                    .withSpeech("Could you please repeat that?")
+                    .withShouldEndSession(false)
+                    .build();
+        }
     }
 }
