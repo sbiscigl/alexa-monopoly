@@ -56,6 +56,7 @@ public class MonopolyHotelPurchaseHandler extends PropertyActions implements Hot
         this.gameStatusDao.updateGameStatusForUserId(gameStatus, userId);
         return handlerInput.getResponseBuilder()
                 .withSpeech("Not Implemented")
+                .withShouldEndSession(false)
                 .build();
     }
 }

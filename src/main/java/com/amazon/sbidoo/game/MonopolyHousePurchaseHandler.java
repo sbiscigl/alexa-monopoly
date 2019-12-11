@@ -57,6 +57,7 @@ public class MonopolyHousePurchaseHandler extends PropertyActions implements Hou
         this.gameStatusDao.updateGameStatusForUserId(gameStatus, userId);
         return handlerInput.getResponseBuilder()
                 .withSpeech("Not Implemented")
+                .withShouldEndSession(false)
                 .build();
     }
 }

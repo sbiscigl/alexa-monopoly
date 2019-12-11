@@ -46,6 +46,7 @@ public class MonopolyPropertyPurchaseHandler extends PropertyActions implements 
         this.gameStatusDao.updateGameStatusForUserId(gameStatus, userId);
         return handlerInput.getResponseBuilder()
                 .withSpeech(propertyPurchaseReturn.getMessage())
+                .withShouldEndSession(false)
                 .build();
     }
 }
