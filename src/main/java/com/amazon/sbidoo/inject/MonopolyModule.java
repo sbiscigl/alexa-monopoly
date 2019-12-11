@@ -19,8 +19,6 @@ import com.amazon.sbidoo.game.OnStartHandler;
 import com.amazon.sbidoo.game.PropertyPurchaseHandler;
 import com.amazon.sbidoo.game.status.GameStatusDao;
 import com.amazon.sbidoo.game.status.S3GameStatusDao;
-import com.amazon.sbidoo.game.status.SpaceInfo;
-import com.amazon.sbidoo.game.status.serializer.SpaceInfoSerializer;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -37,7 +35,7 @@ public class MonopolyModule extends AbstractModule {
         bind(GameStatusDao.class).to(S3GameStatusDao.class);
         bind(Gson.class)
                 .toInstance(new GsonBuilder()
-                        .registerTypeAdapter(SpaceInfo.class, new SpaceInfoSerializer())
+                        .enableComplexMapKeySerialization()
                         .create());
         bind(AmazonS3.class).toInstance(AmazonS3ClientBuilder.standard()
                 .withCredentials(DefaultAWSCredentialsProviderChain.getInstance())
