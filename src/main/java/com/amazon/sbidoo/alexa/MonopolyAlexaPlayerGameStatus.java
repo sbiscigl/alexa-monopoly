@@ -38,7 +38,8 @@ public class MonopolyAlexaPlayerGameStatus extends PropertyActions implements Al
         final int dieOne = RandomUtils.nextInt(1, 7);
         final int dieTwo = RandomUtils.nextInt(1, 7);
         final Player playerOnTurn = getPlayerOnTurn(gameStatus);
-        playerOnTurn.updatePositionFromStart(dieOne, dieTwo);
+        int before = playerOnTurn.getPositionFromStart();
+        playerOnTurn.updatePositionFromStart(dieOne, dieTwo, playerOnTurn);
         final Space.SpaceType spaceType = gameStatus.getBoard()
                 .getSpaceMap()
                 .get(playerOnTurn.getPositionFromStart())
@@ -57,6 +58,11 @@ public class MonopolyAlexaPlayerGameStatus extends PropertyActions implements Al
         } else {
             propertyPurchaseReturn = Optional.empty();
         }
+        int after = playerOnTurn.getPositionFromStart();
+        StringBuilder passedGoStringBuilder = new StringBuilder();
+        if (after - before > 12) {
+            passedGoStringBuilder.append("You passed go. You collected 200 dollars.");
+        }
         endTurn(gameStatus);
         return AlexaTurnResult.builder()
                 .dieOne(dieOne)
@@ -71,6 +77,7 @@ public class MonopolyAlexaPlayerGameStatus extends PropertyActions implements Al
                         .getMessage())
                 .chargedStatement(chargedStatement)
                 .chanceResult(chanceResult)
+                .passedGoMessage(passedGoStringBuilder.toString())
                 .build();
     }
 }

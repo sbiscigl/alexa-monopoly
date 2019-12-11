@@ -80,7 +80,7 @@ abstract public class PlayerGameStatus {
             //Alexa should say this
             sb.append("This property is owned by ").append(ownerPieceType).append(". ");
             int chargePrice = calculateChargePrice(spacePrice, houses, hotels, propertyMap, spaceType, spaceCategory, ownerPieceType);
-            if(playerMoney >= chargePrice) {
+            if(playerMoney >= chargePrice && playerOnTurn.getPieceType() != propertyOwnerInfo.getOwner()) {
                 //Alexa should say this
                 sb.append("Charging ").append(chargePrice).append(" dollars. ");
                 playerOnTurn.updateMoney(chargePrice);

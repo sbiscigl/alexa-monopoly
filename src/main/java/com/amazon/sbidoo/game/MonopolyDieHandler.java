@@ -80,11 +80,17 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
             final String userId = handlerInput.getRequestEnvelope().getSession().getUser().getUserId();
             final GameStatus gameStatusForUserId = this.gameStatusDao.getGameStatusForUserId(userId);
             final Player playerOnTurn = getPlayerOnTurn(gameStatusForUserId);
+            int before = playerOnTurn.getPositionFromStart();
             final String handleDiceRoll = handleDiceRoll(gameStatusForUserId, playerOnTurn, dieOne, dieTwo);
             final String chargedStatement = chargePlayerIfSpaceIsOwned(playerOnTurn, gameStatusForUserId);
+            int after = playerOnTurn.getPositionFromStart();
+            StringBuilder passedGoStringBuilder = new StringBuilder();
+            if (after - before > 12) {
+                passedGoStringBuilder.append("You passed go. You collected 200 dollars.");
+            }
             this.gameStatusDao.updateGameStatusForUserId(gameStatusForUserId, userId);
             return handlerInput.getResponseBuilder()
-                    .withSpeech(buildSpeechString(gameStatusForUserId, playerOnTurn, chargedStatement, handleDiceRoll))
+                    .withSpeech(buildSpeechString(gameStatusForUserId, playerOnTurn, chargedStatement, handleDiceRoll, passedGoStringBuilder.toString()))
                     .withShouldEndSession(false)
                     .build();
         } catch (Exception e) {
@@ -98,7 +104,8 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
     private String buildSpeechString(GameStatus gameStatusForUserId,
                                      Player playerOnTurn,
                                      String chargedStatement,
-                                     String handleDiceRoll) {
+                                     String handleDiceRoll,
+                                     String passerGoString) {
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(String.format("You are currently on %s. ",
                 gameStatusForUserId.getBoard()
@@ -110,6 +117,9 @@ public class MonopolyDieHandler extends PlayerGameStatus implements DieRollHandl
         }
         if (!handleDiceRoll.isEmpty()) {
             stringBuilder.append(handleDiceRoll).append(". ");
+        }
+        if (!passerGoString.isEmpty()) {
+            stringBuilder.append(passerGoString).append(". ");
         }
         return stringBuilder.toString();
     }

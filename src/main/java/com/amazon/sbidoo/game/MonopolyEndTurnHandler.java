@@ -75,6 +75,9 @@ public class MonopolyEndTurnHandler extends PlayerGameStatus implements EndTurnH
         if (!alexaTurnResult.getChanceResult().isEmpty()) {
             stringBuilder.append(alexaTurnResult.getChanceResult()).append(". ");
         }
+        if (!alexaTurnResult.getPassedGoMessage().isEmpty()) {
+            stringBuilder.append(alexaTurnResult.getPassedGoMessage()).append(". ");
+        }
         return stringBuilder.toString();
     }
 }

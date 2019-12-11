@@ -12,4 +12,5 @@ public class AlexaTurnResult {
     private final String purchaseMessage;
     private final String chargedStatement;
     private final String chanceResult;
+    private final String passedGoMessage;
 }

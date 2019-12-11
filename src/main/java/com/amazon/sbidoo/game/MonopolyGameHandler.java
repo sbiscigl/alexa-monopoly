@@ -46,7 +46,7 @@ public class MonopolyGameHandler implements GameHandler {
     private void handleDiceRoll(String userId, int dieOne, int dieTwo) {
         Player playerOnTurn = getPlayerOnTurn(userId);
         if(playerOnTurn != null) {
-            playerOnTurn.updatePositionFromStart(dieOne, dieTwo);
+            playerOnTurn.updatePositionFromStart(dieOne, dieTwo, playerOnTurn);
             chargePlayerIfSpaceIsOwned(userId, playerOnTurn);
         }
         else {
