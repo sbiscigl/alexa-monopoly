@@ -28,7 +28,7 @@ abstract public class PropertyActions extends PlayerGameStatus {
         int spacePrice = space.getPrice();
         int playerMoney = player.getMoney();
 
-        if (spacePrice == 0) {
+        if (spacePrice <= 0) {
             //Alexa should say this
             return PropertyPurchaseReturn.builder()
                     .message("This space cannot be purchased!")
