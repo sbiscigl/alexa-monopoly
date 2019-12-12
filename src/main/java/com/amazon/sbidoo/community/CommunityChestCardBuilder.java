@@ -12,15 +12,6 @@ public class CommunityChestCardBuilder {
     public static List<Card> buildCommunityChanceCards() {
         return ImmutableList.of(
                 Card.builder()
-                        .message("Advance to go collect 200 dollars")
-                        .cardApplier((player, banker) -> {
-                            player.setPositionFromStart(0);
-                            player.setMoney(player.getMoney() + 200);
-                            banker.setBankroll(banker.getBankroll() - 200);
-                            return "Advance to go collect 200 dollars. Current balance is " + player.getMoney() + " dollars";
-                        })
-                        .build(),
-                Card.builder()
                         .message("Bank error in your favor, collect 200 dollars")
                         .cardApplier((player, banker) -> {
                             player.setMoney(player.getMoney() + 200);
